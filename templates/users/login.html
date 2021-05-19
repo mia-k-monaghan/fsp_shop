@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block meta_block %}
+{% endblock meta_block %}
+
+
+{% block content %}
+<main >
+
+  <div class="">
+    <div class="jumbotron">
+      <h1 class="display-4 text-center">Login</h1>
+    </div>
+    <div class="container">
+
+      <div class="col-md-8 mx-auto">
+        <form method="POST">
+          {% csrf_token %}
+          {% crispy form %}
+          <div class="text-center pb-4">
+            <input type="submit"
+            class="btn btn-primary btn-lg"
+            value="Login">
+          </div>
+        </form>
+        <hr>
+        <div class="Jumbotron text-center py-2 ">
+
+        <p class="lead">Logging in for the first time? Set your password here to securely access your purchase.</p>
+        <div class="text-center lead">
+          <a class="btn btn-outline-dark"href="{% url 'users:set-password' %}">Set Password</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+
+  </div>
+</main>
+
+
+
+
+
+
+
+{% endblock content %}

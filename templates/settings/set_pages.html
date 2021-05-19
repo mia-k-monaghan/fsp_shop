@@ -1,0 +1,31 @@
+{% extends "settings/settings_base.html" %}
+{% block setting_content %}
+  <h5 class="card-title text-center mb-4">Optional Pages</h5>
+  <p><strong>About Page:</strong>
+  {% if about %}
+    <a href="{% url 'settings:update-page' pk=about.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+    <br>
+    <small>Navbar Label: {{about.navbar_label}}</small>
+    <br>
+    <small>Display: {% if about.display %}Yes{% else %}No{% endif %}</small>
+    </p>
+
+  {% else %}
+      <a href="{% url 'settings:add-page' page='ABOUT' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+  <p><strong>FAQ Page:</strong>
+  {% if faq %}
+    <a href="{% url 'settings:update-page' pk=faq.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+    <br>
+    <small>Navbar Label: {{faq.navbar_label}}</small>
+    <br>
+    <small>Display: {% if faq.display %}Yes{% else %}No{% endif %}</small>
+    </p>
+
+  {% else %}
+      <a href="{% url 'settings:add-page' page='FAQ' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+
+{% endblock setting_content %}

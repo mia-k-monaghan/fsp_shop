@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-5 my-5">
+  <div class="col-md-10 mx-auto">
+    <div class="card pb-5">
+      <div class="card-header text-center">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings:icons' %}">Icons</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings:themes' %}">Themes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings:socials' %}">Social Accounts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings:pages' %}">Optional Pages</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        {% block setting_content %}
+
+        {% endblock setting_content %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends "settings/settings_base.html" %}
+{% block setting_content %}
+  <h5 class="card-title text-center mb-4">Website Theme</h5>
+  <p><strong>Navbar Theme:</strong>
+  {% if nav %}
+    <a href="{% url 'settings:update-theme' pk=nav.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+    <a href="{% url 'settings:delete-theme' pk=nav.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    <br>
+    <small>Text Color: {{nav_text}}</small>
+    <br>
+    <small>Background Color: {{nav.background_color}}</small>
+    </p>
+
+  {% else %}
+      <a href="{% url 'settings:add-theme' type='NAVBAR' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+  <p><strong>Footer Theme:</strong>
+  {% if footer %}
+    <a href="{% url 'settings:update-theme' pk=footer.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+    <a href="{% url 'settings:delete-theme' pk=footer.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    <br>
+    <small>Text Color: {{footer_text}}</small>
+    <br>
+    <small>Background Color: {{footer.background_color}}</small>
+    </p>
+
+  {% else %}
+      <a href="{% url 'settings:add-theme' type='FOOTER' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+{% endblock setting_content %}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  {% block meta_block %}
+
+  {% endblock meta_block %}
+
+  <!-- Site Icon -->
+  {% if site_icon %}
+    <link rel="icon" href="{{site_icon.image.url}}">
+  {% else %}
+    <link rel="icon" href="{% static "img/Default_Logo.png" %}">
+  {% endif %}
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="{% static "css/style.min.css" %}" rel="stylesheet">
+  <link href="{% static "css/master.css" %}" rel="stylesheet">
+
+  {% block extra_head %}
+
+  {% endblock extra_head %}
+</head>
+
+<body>
+
+  <!--Main Navigation-->
+  <header>
+
+    <!-- Navbar -->
+    {% if nav %}
+      <nav style="background-color:{{nav.background_color}};"class="navbar shadow fixed-top navbar-expand-lg navbar-{{nav_text}} scrolling-navbar">
+
+    {% else %}
+      <nav class="navbar shadow fixed-top navbar-expand-lg navbar-light bg-light scrolling-navbar">
+    {% endif %}
+      <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand waves-effect" href="{% url 'core:index' %}">
+          {% if logo %}
+          <img style="height:1.7em;"
+              src="{{logo.image.url}}"
+              alt="">
+          {% else %}
+          <img style="height:1.7em;"
+              src="{% static "img/Default_Navbar_Logo.png" %}"
+              alt="WSS">
+
+          {% endif %}
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'core:index' %}">Home</a>
+            </li>
+
+            {% for page in display_list %}
+              <li class="nav-item">
+                <a class="nav-link waves-effect"
+                href="{% url page.page|lower %}" >{{page.navbar_label}}</a>
+              </li>
+            {% endfor %}
+
+          </ul>
+
+          <!-- Right -->
+          <ul class="navbar-nav nav-flex-icons">
+
+            {% if facebook.display %}
+            <li class="nav-item">
+              <a href="{{facebook.link}}" class="nav-link waves-effect" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            {% endif %}
+            {% if twitter.display %}
+            <li class="nav-item">
+              <a href="{{twitter.link}}" class="nav-link waves-effect" target="_blank">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            {% endif %}
+            {% if pinterest.display %}
+            <li class="nav-item">
+              <a href="{{pinterest.link}}" class="nav-link waves-effect" target="_blank">
+                <i class="fab fa-pinterest"></i>
+              </a>
+            </li>
+            {% endif %}
+            {% if insta.display %}
+            <li class="nav-item">
+              <a href="{{insta.link}}" class="nav-link waves-effect" target="_blank">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+            {% endif %}
+            {% if request.user.is_superuser %}
+            <li class="nav-item">
+              <a href="{% url 'settings:icons' %}" class="nav-link waves-effect">
+                <i class="fas fa-cog"></i>
+              </a>
+            </li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link waves-effect mr-2"
+              href="{% url 'users:profile' pk=request.user.pk %}" >Account</a>
+            </li>
+              {% if nav %}
+
+              <li class="nav-item">
+                <a class="nav-link waves-effect btn btn-outline-{{nav_text}}"
+                href="{% url 'users:logout' %}" >Logout</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link waves-effect btn btn-outline-dark"
+                href="{% url 'users:logout' %}" >Logout</a>
+              </li>
+              {% endif %}
+            {% else %}
+              {% if nav %}
+              <li class="nav-item">
+                <a class="nav-link waves-effect btn btn-outline-{{nav_text}}"
+                href="{% url 'users:login' %}" >Login</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link waves-effect btn btn-outline-dark"
+                href="{% url 'users:login' %}" >Login</a>
+              </li>
+              {% endif %}
+
+            {% endif %}
+
+          </ul>
+
+        </div>
+
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main class="mt-5">
+
+    {% block content %}
+
+    {% endblock content %}
+  </main>
+
+  <!--Main layout-->
+
+  <!--Footer-->
+  {% if footer %}
+    <footer style="background-color:{{footer.background_color}};"class="{{footer_text}}-footer-text text-center font-small my-4 pb-4">
+  {% else %}
+    <footer style="background-color:black;"class="light-footer-text text-center my-4 pb-4">
+  {% endif %}
+    {% block extra_footer %}
+
+    {% endblock extra_footer %}
+
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-5">
+          <div class="nav justify-content-center">
+
+          {% if facebook.display %}
+          <a href="{{facebook.link}}" class="nav-link waves-effect" target="_blank">
+            <i class="fab fa-facebook-f mr-3"></i>
+          </a>
+          {% endif %}
+          {% if twitter.display %}
+          <a href="{{twitter.link}}" class="nav-link waves-effect" target="_blank">
+            <i class="fab fa-twitter mr-3"></i>
+          </a>
+          {% endif %}
+          {% if pinterest.display %}
+          <a href="{{pinterest.link}}" class="nav-link waves-effect" target="_blank">
+            <i class="fab fa-pinterest mr-3"></i>
+          </a>
+          {% endif %}
+          {% if insta.display %}
+          <a href="{{insta.link}}" class="nav-link waves-effect" target="_blank">
+            <i class="fab fa-instagram mr-3"></i>
+          </a>
+          {% endif %}
+      </div>
+
+      <hr>
+      <small><a class="mr-2"href="{% url 'core:terms' %}">Terms of Service</a></small>
+      <small><a class="mr-2"href="{% url 'core:privacy' %}">Privacy Policy</a></small>
+      <small><a class="mr-2"href="{% url 'admin:index' %}">Administration</a></small>
+    </div>
+    <!-- Social icons -->
+
+
+  </footer>
+  <!--/.Footer-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="{% static "js/jquery-3.4.1.min.js" %}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{% static "js/popper.min.js" %}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+  <!-- Initializations -->
+  {% block extra_scripts %}
+
+  {% endblock extra_scripts %}
+</body>
+
+</html>

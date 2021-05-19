@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+  <script src="https://js.stripe.com/v3"></script>
+{% endblock extra_head %}
+
+{% block content %}
+<div class="container pt-5">
+
+<div class="py-5 mb-5 text-center">
+  <div class="row">
+    <div class="col-md-6">
+      <img class="img-fluid card text-center shadow"
+        src="{{product.image.url}}">
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title">{{product.title}}</h2>
+
+            <p class="card-text"><strong>{{product.description|linebreaks|safe}}</strong></p>
+            <p class="card-text">{{product.additional_details|linebreaks|safe}}
+            </p>
+            <button
+            class="btn btn-outline-dark shadow-sm btn-lg btn-block"
+            id="checkout-button-subscribe"
+            role="link"
+            type="submit"
+            >
+            Buy Now
+          </button>
+          <div id="error-message"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+    (function() {
+    var stripe = Stripe('{{stripe_publishable_key}}');
+
+    var checkoutButton = document.getElementById('checkout-button-subscribe');
+    checkoutButton.addEventListener('click', function () {
+    /*
+     * When the customer clicks on the button, redirect
+     * them to Checkout.
+     */
+    stripe.redirectToCheckout({
+      lineItems: [{price: '{{product.stripe_id}}', quantity: 1}],
+      mode: 'payment',
+      /*
+       * Do not rely on the redirect to the successUrl for fulfilling
+       * purchases, customers may not always reach the success_url after
+       * a successful payment.
+       * Instead use one of the strategies described in
+       * https://stripe.com/docs/payments/checkout/fulfill-orders
+       */
+      successUrl: '{{success_url}}',
+      cancelUrl: '{{cancel_url}}',
+    })
+    .then(function (result) {
+      if (result.error) {
+        /*
+         * If `redirectToCheckout` fails due to a browser or network
+         * error, display the localized error message to your customer.
+         */
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+    });
+    })();
+</script>
+{% endblock extra_scripts %}

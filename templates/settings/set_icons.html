@@ -1,0 +1,37 @@
+{% extends "settings/settings_base.html" %}
+{% block setting_content %}
+  <h5 class="card-title text-center mb-4">Website Icons</h5>
+  <p>Navbar Logo:
+    {% if logo %}
+    <img style="height:1.7em;"src="{{logo.image.url}}"alt="{{logo.alt}}">
+      <a href="{% url 'settings:update-image' pk=logo.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+      <a href="{% url 'settings:delete-image' pk=logo.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    </p>
+
+    {% else %}
+      <a href="{% url 'settings:add-image' type='LOGO' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+  <p>Site Icon:
+    {% if site_icon %}
+    <img style="height:1.7em;"src="{{site_icon.image.url}}"alt="{{logo.alt}}">
+      <a href="{% url 'settings:update-image' pk=site_icon.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+      <a href="{% url 'settings:delete-image' pk=site_icon.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    </p>
+
+    {% else %}
+      <a href="{% url 'settings:add-image' type='ICON' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+  <p>Apple-Touch Icon:
+    {% if apple_icon %}
+    <img style="height:1.7em;"src="{{apple_icon.image.url}}"alt="{{logo.alt}}">
+      <a href="{% url 'settings:update-image' pk=apple_icon.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+      <a href="{% url 'settings:delete-image' pk=apple_icon.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    </p>
+
+    {% else %}
+      <a href="{% url 'settings:add-image' type='A_ICON' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+{% endblock setting_content %}

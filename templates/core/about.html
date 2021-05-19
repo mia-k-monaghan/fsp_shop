@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_block %}
+  <title>{{seo.title}}</title>
+  <meta name="description" property=og:description content="{{seo.description}}">
+  <meta name="keywords" content="{{seo.keywords}}">
+  <meta property="og:title" content="{{seo.title}}">
+  <meta property="og:url" content="{% url 'faq' %}">
+{% endblock meta_block %}
+
+
+{% block content %}
+
+<div class="container py-4">
+
+<div class="text-center">
+  {% if content %}
+  {% if h1 %}
+    <div class="Jumbotron pt-4">
+      {% if request.user.is_superuser %}
+        <a class="float-right ml-4" style="color:black;" href="{% url 'settings:delete-content' pk=h1.pk %}?next={{ request.path|urlencode }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a class="float-right"style="color:black;" href="{% url 'settings:update-content' pk=h1.pk %}?next={{ request.path|urlencode }}">
+            <i class="fas fa-pencil-alt"></i>
+        </a>
+        <br>
+      {% endif %}
+      <p class="display-4">{{h1.heading}}</p>
+    </div>
+    <div class="text-center">
+      <p class="lead">{{h1.details|linebreaks}}</p>
+    </div>
+    {% if about_image %}
+      <img style="width:20em;"class="img-fluid card mx-auto" src="{{about_image.image.url}}" alt="About Image">
+      {% if request.user.is_superuser %}
+        <br>
+        <a style="color:black;" href="{% url 'settings:update-image' pk=about_image.pk %}?next={{ request.path|urlencode }}">
+            <i class="fas fa-pencil-alt"></i>
+        </a>
+        <a class="ml-4" style="color:black;" href="{% url 'settings:delete-image' pk=about_image.pk %}?next={{ request.path|urlencode }}"><i class="fa fa-trash"></i></a>
+      {% endif %}
+    {% else %}
+    {% if request.user.is_superuser %}
+      <a href="{% url 'settings:add-image' type='ABOUT' %}?next={{ request.path|urlencode }}">
+          <i style="color:black;"class="fas fa-plus mr-4"></i><small class="text-muted">Add Image</small>
+      </a>
+    {% endif %}
+    {% endif %}
+
+  {% endif %}
+
+  {% else %}
+  <div class="Jumbotron pt-4">
+    {% if request.user.is_superuser %}
+    <div class="text-center">
+      <a class="float-right" style="color:black;" href="{% url 'settings:create-content' page='ABOUT' type='H1' %}?next={{ request.path|urlencode }}"><i class="fas fa-pencil-alt"></i></a>
+      <br>
+    </div>
+    {% endif %}
+    <p class="display-4">About</p>
+  </div>
+  <div class="text-center">
+    <p class="lead">Tell us about your business! </p>
+    <p class="card-text">How were you founded? Who dreamed the great idea?</p>
+    <p class="card-text">Click the pencil to enter your content!</p>
+
+    <img style="width:20em;"class="img-fluid card mx-auto" src="{% static "img/Default_Background.png" %}" alt="Default About Image">
+  </div>
+
+
+  {% endif %}
+</div>
+</div>
+
+
+{% endblock content %}

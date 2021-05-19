@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_block %}
+  <title>{{seo.title}}</title>
+  <meta name="description" property=og:description content="{{seo.description}}">
+  <meta name="keywords" content="{{seo.keywords}}">
+  <meta property="og:title" content="{{seo.title}}">
+  <meta property="og:url" content="{% url 'faq' %}">
+{% endblock meta_block %}
+
+
+{% block content %}
+
+<div class="container pt-5">
+
+<div class="mb-5 pb-5">
+    <div class="row">
+      <div class="col-lg-10 col-md-6 mx-auto">
+        <div class="card mb-4 pb-4">
+          <div class="card-header">
+    {% if h1 %}
+            {% if request.user.is_superuser %}
+              <a class="float-right ml-4" style="color:black;" href="{% url 'settings:delete-content' pk=h1.pk %}?next={{ request.path|urlencode }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              <a class="float-right"style="color:black;" href="{% url 'settings:update-content' pk=h1.pk %}?next={{ request.path|urlencode }}">
+                  <i class="fas fa-pencil-alt"></i>
+              </a>
+              <br>
+            {% endif %}
+            <p class="card-title display-4 text-center">{{h1.heading}}</p>
+            <small class="text-center">{{h1.details|linebreaks}}</small>
+          </div>
+    {% else %}
+        {% if request.user.is_superuser %}
+          <a class="float-right mr-4"style="color:black;" href="{% url 'settings:create-content' page='FAQ' type='H1' %}?next={{ request.path|urlencode }}">
+              <i class="fas fa-pencil-alt"></i>
+          </a>
+          <br>
+        {% endif %}
+        <p class="card-title display-4 text-center">Welcome to the FAQ page!</p>
+      </div>
+    {% endif %}
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+          {% if h2 %}
+          {% for q in h2 %}
+            <li class="list-group-item">
+              {% if request.user.is_superuser %}
+                <a class="float-right ml-4" style="color:black;" href="{% url 'settings:delete-content' pk=q.pk %}?next={{ request.path|urlencode }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <a class="float-right"style="color:black;" href="{% url 'settings:update-content' pk=q.pk %}?next={{ request.path|urlencode }}">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <br>
+              {% endif %}
+              <p class="card-title pt-2 h3">{{q.heading}}</p>
+              <p class="card-text">{{q.details|linebreaks}}</p>
+            </li>
+          {% endfor %}
+          {% if request.user.is_superuser %}
+          <div class="text-center">
+            <a class="float-right" style="color:black;" href="{% url 'settings:create-content' page='FAQ' type='H2' %}?next={{ request.path|urlencode }}"><i class="fas fa-plus"></i></a>
+            <br>
+          </div>
+          {% endif %}
+
+    {% else %}
+    <li class="list-group-item">
+      {% if request.user.is_superuser %}
+        <a class="float-right"style="color:black;" href="{% url 'settings:create-content' page='FAQ' type='H2' %}?next={{ request.path|urlencode }}">
+            <i class="fas fa-plus"></i>
+        </a>
+        <br>
+      {% endif %}
+      <p class="card-title h3">Want to add a question?</p>
+      <p class="card-text lead">Click the plus sign to get started!</p>
+    </li>
+    {% endif %}
+    </ul>
+  </div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+</div>
+
+
+{% endblock content %}

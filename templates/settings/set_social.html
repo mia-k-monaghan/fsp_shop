@@ -1,0 +1,63 @@
+{% extends "settings/settings_base.html" %}
+{% block setting_content %}
+  <h5 class="card-title text-center mb-4">Social Accounts</h5>
+  <p><strong>Facebook:</strong>
+  {% if facebook %}
+    <a href="{% url 'settings:update-social' pk=facebook.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+    <a href="{% url 'settings:delete-social' pk=facebook.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    <br>
+    <small>Link: {{facebook.link}}</small>
+    <br>
+    <small>Display: {{facebook.display}}</small>
+    </p>
+
+  {% else %}
+      <a href="{% url 'settings:add-social' type='FB' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+  <p><strong>Instagram:</strong>
+  {% if insta %}
+    <a href="{% url 'settings:update-social' pk=insta.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+    <a href="{% url 'settings:delete-social' pk=insta.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    <br>
+    <small>Link: {{insta.link}}</small>
+    <br>
+    <small>Display: {{insta.display}}</small>
+    </p>
+
+  {% else %}
+      <a href="{% url 'settings:add-social' type='IG' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+  <p><strong>Pinterest:</strong>
+  {% if pinterest %}
+    <a href="{% url 'settings:update-social' pk=pinterest.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+    <a href="{% url 'settings:delete-social' pk=pinterest.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    <br>
+    <small>Link: {{pinterest.link}}</small>
+    <br>
+    <small>Display: {{pinterest.display}}</small>
+    </p>
+
+  {% else %}
+      <a href="{% url 'settings:add-social' type='PIN' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+  <p><strong>Twitter:</strong>
+  {% if twitter %}
+    <a href="{% url 'settings:update-social' pk=twitter.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fas fa-pencil-alt"></i></a>
+    <a href="{% url 'settings:delete-social' pk=twitter.pk %}?next={{ request.path|urlencode }}"><i class="float-right ml-4 fa fa-trash"></i></a>
+    <br>
+    <small>Link: {{twitter.link}}</small>
+    <br>
+    <small>Display: {{twitter.display}}</small>
+    </p>
+
+  {% else %}
+      <a href="{% url 'settings:add-social' type='TW' %}?next={{ request.path|urlencode }}"><i class="float-right fas fa-plus"></i></a>
+  {% endif %}
+
+
+
+
+{% endblock setting_content %}

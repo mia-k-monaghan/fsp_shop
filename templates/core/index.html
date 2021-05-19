@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_block %}
+  <title>{{seo.title}}</title>
+  <meta name="description" property=og:description content="{{seo.description}}">
+  <meta name="keywords" content="{{seo.keywords}}">
+  <meta property="og:title" content="{{seo.title}}">
+  <meta property="og:url" content="{% url 'core:index' %}">
+  {% if main %}
+    <meta property="og:image" content="{{main.image.url}}">
+    <meta property="og:image:alt" content="{{main.alt}}">
+  {% endif %}
+
+{% endblock meta_block %}
+
+{% block content %}
+  {% if main %}
+    <img class="d-block w-100 mx-auto" src="{{main.image.url}}" alt="{{main.alt}}">
+    {% if request.user.is_superuser %}
+      <a class="float-left"style="color:black;" href="{% url 'settings:update-image' pk=main.pk %}?next={{ request.path|urlencode }}">
+        <small class="text-muted">Change Image</small>
+      </a>
+    {% endif %}
+
+  {% else %}
+    <img class="d-block w-100 mx-auto" src="{% static "img/Default_Background.png" %}" alt="">
+    {% if request.user.is_superuser %}
+      <a class="float-left"style="color:black;" href="{% url 'settings:add-image' type='MAIN' %}?next={{ request.path|urlencode }}">
+          <small class="text-muted">Change Image</small>
+      </a>
+    {% endif %}
+  {% endif %}
+<div class="container pt-5">
+
+
+<div class="Jumbotron jumbotron-fluid">
+  <div class="text-center">
+    {% if content %}
+      {% if h1 %}
+        {% if request.user.is_superuser %}
+          <a class="float-right ml-4" style="color:black;" href="{% url 'settings:delete-content' pk=h1.pk %}?next={{ request.path|urlencode }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+          <a class="float-right"style="color:black;" href="{% url 'settings:update-content' pk=h1.pk %}?next={{ request.path|urlencode }}">
+              <i class="fas fa-pencil-alt"></i>
+          </a>
+          <br>
+        {% endif %}
+        <p class="display-4">{{h1.heading|linebreaks}}</p>
+        <p class="lead">{{h1.details|linebreaks}}</p>
+
+      </div>
+    </div>
+
+      {% endif %}
+      {% if h2 %}
+        <div class="mb-5 pt-5 text-center">
+          {% if request.user.is_superuser %}
+          <a class="float-right ml-4" style="color:black;" href="{% url 'settings:delete-content' pk=h2.pk %}?next={{ request.path|urlencode }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+          <a class="float-right"style="color:black;" href="{% url 'settings:update-content' pk=h2.pk %}?next={{ request.path|urlencode }}">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+          <br>
+          {% endif %}
+          <p class="h2">{{h2.heading|linebreaks}}</p>
+          <p>{{h2.details|linebreaks}}</p>
+
+        </div>
+      {% else %}
+        {% if request.user.is_superuser %}
+        <div class="text-center">
+          <a class="float-right" style="color:black;" href="{% url 'settings:create-content' page='HOME' type='H2' %}?next={{ request.path|urlencode }}"><i class="fas fa-plus"></i></a>
+          <br>
+        </div>
+        {% endif %}
+      {% endif %}
+    {% else %}
+        <p class="display-4">Full Stack Pak</p>
+        <p class="lead">The most affordable way to start your online business now. Simple Design. No Recurring Fees. Just deploy & enter your content.</p>
+      </div>
+
+      <div class="py-5 mb-5 text-center">
+        <p class="h2">What is your business about?</p>
+        <p>Every business is different. Describe yours here!</p>
+        {% if request.user.is_superuser %}
+        <a class="btn btn-lg shadow btn-outline-dark" href="{% url 'settings:create-content' page='HOME' type='H1' %}?next={{ request.path|urlencode }}">Get Started</a>
+        {% endif %}
+
+      </div>
+    {% endif %}
+
+{% if products %}
+{% for product in featured_products %}
+  <hr>
+  <div class="row mt-3 pt-3">
+
+    <!--Grid column-->
+    <div class="col-lg-5 col-xl-4 mb-4">
+      <!--Featured image-->
+        <a href="{% url 'core:product-detail' slug=product.slug %}">
+          <img src="{{ product.image.url }}" class="img-fluid card shadow-sm"
+            alt="Where's the picture?">
+        </a>
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+      <h3 class="mb-3 font-weight-bold dark-grey-text">
+        <strong>{{product.title}}</strong>
+      </h3>
+      <p class="grey-text">{{product.description|linebreaks|safe}}</p>
+      <a href="{% url 'core:product-detail' slug=product.slug %}"
+        class="btn btn-outline-dark shadow-sm btn-md">Details
+      </a>
+    </div>
+    <!--Grid column-->
+
+  </div>
+{% endfor %}
+{% else %}
+  <div class="row mt-3">
+    <!--Grid column-->
+    <div class="col-lg-5 col-xl-4 mb-4">
+      <!--Featured image-->
+        <img src="{% static "img/Default_Featured_Product.png" %}" class="img-fluid card shadow-sm"
+          alt="Where's the picture?">
+        <a href="#">
+        </a>
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+      <h3 class="mb-3 font-weight-bold dark-grey-text">
+        <strong>Your Featured Product</strong>
+      </h3>
+      <p class="grey-text">You can add your own products on the admin page and see them featured here!</p>
+      <a href="#"
+        class="btn btn-outline-dark btn-md shadow-sm">Details
+      </a>
+    </div>
+    <!--Grid column-->
+
+  </div>
+{% endif %}
+</div>
+{% endblock content %}
+
+{% block extra_footer %}
+{% if products|length > featured_products|length %}
+    <div class="pt-4">
+      {% if footer_text %}
+      <a class="btn btn-outline-{{footer_text}} btn-lg shadow" href="{% url 'core:product-list' %}"
+          role="button">View All Subscriptions</a>
+      {% else %}
+      <a class="btn btn-outline-light btn-lg shadow" href="{% url 'core:product-list' %}"
+          role="button">View All Subscriptions</a>
+      {% endif %}
+    </div>
+
+{% endif %}
+{% endblock extra_footer %}

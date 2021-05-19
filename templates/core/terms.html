@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_block %}
+  <title>Terms of Service</title>
+{% endblock meta_block %}
+
+
+{% block content %}
+
+<div class="container py-4">
+
+<div class="text-center">
+  {% if h1 %}
+    <div class="Jumbotron pt-4">
+      {% if request.user.is_superuser %}
+        <a class="float-right ml-4" style="color:black;" href="{% url 'settings:delete-content' pk=h1.pk %}?next={{ request.path|urlencode }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a class="float-right"style="color:black;" href="{% url 'settings:update-content' pk=h1.pk %}?next={{ request.path|urlencode }}">
+            <i class="fas fa-pencil-alt"></i>
+        </a>
+        <br>
+      {% endif %}
+      <h1>{{h1.heading}}</h1>
+    </div>
+    <div class="text-center">
+      <p class="card-text">{{h1.details|linebreaks}}</p>
+      <p class="card-text">{{h1.additional_details|linebreaks}}</p>
+    </div>
+
+  {% else %}
+  <div class="mb-b pb-5">
+
+  <div class="Jumbotron py-4">
+    <h1>Terms of Service</h1>
+  </div>
+  <div class="text-center pb-5 mb-5">
+    <p class="card-text pb-2">Terms of Service are required for this website.</p>
+    <p class="card-text pb-2">You can add your terms by clicking the button below and pasting your legal jargon in the details field.</p>
+    {% if request.user.is_superuser %}
+    <a class="btn btn-outline-dark" href="{% url 'settings:create-content' page='TERMS' type='H1' %}?next={{ request.path|urlencode }}">Get Started</a>
+    {% endif %}
+  </div>
+</div>
+  {% endif %}
+</div>
+</div>
+
+
+{% endblock content %}
