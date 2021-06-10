@@ -15,8 +15,8 @@
       <br>
       {% endif %}
 
-    <h1>{{h1.heading}}</h1>
-    <p>{{h1.details|linebreaks}}</p>
+    <p class="display-4">{{h1.heading}}</p>
+    <p class="lead">{{h1.details}}</p>
     {% else %}
       {% if request.user.is_superuser %}
       <div class="text-center">
@@ -25,8 +25,8 @@
       </div>
       {% endif %}
 
-      <h1>All Products</h1>
-      <p>Browse all our products!</p>
+      <p class="display-4">All Products</p>
+      <p class="lead">Browse all our products!</p>
     {% endif %}
   </div>
 

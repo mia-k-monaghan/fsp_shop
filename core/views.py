@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.core import mail
 from mimetypes import guess_type
-from os.path import basename
+
 from django.template.loader import render_to_string
 from django.contrib.auth import get_user_model
 from settings import models as setting_models
@@ -19,6 +19,7 @@ from . import models
 User = get_user_model()
 
 import stripe
+import os
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -27,9 +28,9 @@ def download(request, path):
     if os.path.exists(file_path):
         with open(file_path,'rb') as fh:
             response=HttpResponse(fh.read(),content_type='application/zip')
-            response['Content-Disposition']='inline;filename='+os.path.basename(file_path)
+            response['Content-Disposition']='attachment;filename='+os.path.basename(file_path)
             return response
-    raise Http404
+    raise HttpResponse(status=404)
 
 class IndexView(TemplateView):
     template_name = 'core/index.html'

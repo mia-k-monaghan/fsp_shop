@@ -3,6 +3,7 @@ from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator
+import os
 
 User = get_user_model()
 
@@ -30,6 +31,9 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("core:product-detail", kwargs={'slug': self.slug})
+
+    def filename(self):
+        return os.path.basename(self.zip_file.name)
 
 class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

@@ -45,8 +45,8 @@
           </a>
           <br>
         {% endif %}
-        <p class="display-4">{{h1.heading|linebreaks}}</p>
-        <p class="lead">{{h1.details|linebreaks}}</p>
+        <p class="display-4">{{h1.heading}}</p>
+        <p class="lead">{{h1.details}}</p>
 
       </div>
     </div>
@@ -61,7 +61,7 @@
           </a>
           <br>
           {% endif %}
-          <p class="h2">{{h2.heading|linebreaks}}</p>
+          <p class="h2">{{h2.heading}}</p>
           <p>{{h2.details|linebreaks}}</p>
 
         </div>
@@ -78,7 +78,7 @@
         <p class="lead">The most affordable way to start your online business now. Simple Design. No Recurring Fees. Just deploy & enter your content.</p>
       </div>
 
-      <div class="py-5 mb-5 text-center">
+      <div class="py-5 text-center">
         <p class="h2">What is your business about?</p>
         <p>Every business is different. Describe yours here!</p>
         {% if request.user.is_superuser %}
@@ -87,6 +87,13 @@
 
       </div>
     {% endif %}
+
+<div class="row pb-5">
+  <div class="mx-auto col-xl-5">
+    <a class="btn mx-auto btn-block btn-info btn-lg shadow-lg"href="https://websitesimplesolutions.pythonanywhere.com/"target="blank">View Demo</a>
+  </div>
+</div>
+
 
 {% if products %}
 {% for product in featured_products %}

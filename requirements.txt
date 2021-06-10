@@ -1,3 +1,4 @@
+-f /usr/share/pip-wheels
 asgiref==3.3.4
 certifi==2020.12.5
 chardet==4.0.0
@@ -10,6 +11,7 @@ django-localflavor==3.0.1
 et-xmlfile==1.0.1
 idna==2.10
 MarkupPy==1.14
+mysqlclient==2.0.3
 odfpy==1.4.1
 openpyxl==3.0.7
 Pillow==8.2.0

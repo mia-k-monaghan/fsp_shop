@@ -18,12 +18,12 @@
     <div class="col-lg-5 col-md-6 mb-4 mx-auto">
       <div class="card shadow">
       <div class="view overlay">
-          <img src="{{order.product.image.url}}" class="card-img-top" alt="">
+          <img src="{{order.product.image.url}}" class="card-img-top" alt="{{order.product.title}}">
       </div>
         <div class="card-body">
           <h3 class="card-title text-center">{{order.product.title}}</h3>
           <p class="card-text text-center">{{order.product.description}}</p>
-          <a class="btn btn-block btn-primary btn-lg"href="{{order.product.zip_file.url}}" download="{{order.product.zip_file.url}}">Download</a>
+          <a class="btn btn-block btn-primary btn-lg"href="{{order.product.zip_file.url}}" download="{{order.product.filename}}">Download</a>
         </div>
       </div>
       <br>
