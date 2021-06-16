@@ -37,10 +37,10 @@
 
     <!-- Navbar -->
     {% if nav %}
-      <nav style="background-color:{{nav.background_color}};"class="navbar shadow fixed-top navbar-expand-lg navbar-{{nav_text}} scrolling-navbar">
+      <nav style="background-color:{{nav.background_color}};"class="navbar shadow navbar-expand-lg navbar-{{nav_text}} scrolling-navbar">
 
     {% else %}
-      <nav class="navbar shadow fixed-top navbar-expand-lg navbar-light bg-light scrolling-navbar">
+      <nav class="navbar shadow navbar-expand-lg navbar-light bg-light scrolling-navbar">
     {% endif %}
       <div class="container">
 
@@ -164,7 +164,7 @@
   <!--Main Navigation-->
 
   <!--Main layout-->
-  <main class="mt-5">
+  <main class="">
 
     {% block content %}
 

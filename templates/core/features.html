@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <p class="display-4 my-5 pt-5 text-center">Choose Your Featured Image</p>
+  <div class="row">
+
+    <div class="col-lg-4 col-xl-4 ml-xl-4 mb-4">
+      <p class="lead">Convey what's important about your business with a high quality image</p>
+    </div>
+    <!-- image-->
+    <div class="col-lg-7 col-xl-7 mb-4 float-right">
+        <img src="{% static "img/Snips/Display.PNG" %}" class="img-fluid card-img-top shadow-sm"
+
+          alt="Where's the picture?">
+    </div>
+
+
+  </div>
+
+</div>
+
+{% endblock content%}
