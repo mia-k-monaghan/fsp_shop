@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block meta_block %}
+  <title>{{seo.title}}</title>
+  <meta name="description" property=og:description content="{{seo.description}}">
+  <meta name="keywords" content="{{seo.keywords}}">
+  <meta property="og:title" content="{{seo.title}}">
+  <meta property="og:url" content="{% url 'core:product-list' %}">
+{% endblock meta_block %}
+
+
 {% block content %}
 
 <div class="container pt-5">

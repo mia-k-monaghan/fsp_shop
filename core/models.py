@@ -17,6 +17,7 @@ class Product(models.Model):
     zip_file = models.FileField(upload_to='product_files',null=True)
     description = models.TextField(null=True,blank=True)
     additional_details = models.TextField(null=True,blank=True)
+    keywords = models.CharField(max_length=250,blank=True, null=True)
     featured = models.BooleanField(default=False,
         help_text = "Display product on the homepage")
     archived = models.BooleanField(default=False,
