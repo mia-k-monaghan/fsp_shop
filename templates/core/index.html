@@ -114,7 +114,7 @@
 
 
 {% if products %}
-<div id='productSection'>
+<div id='productSection'></div>
 
 {% for product in featured_products %}
   <hr>
@@ -141,10 +141,16 @@
       </a>
     </div>
     <!--Grid column-->
-
   </div>
 {% endfor %}
-</div>
+  <hr>
+  <div class="row py-3">
+    <div class="col-md-8 mx-auto">
+
+      <p class="text-center display-4">More Paks Coming Soon</p>
+    </div>
+
+  </div>
 {% else %}
   <div class="row mt-3">
     <!--Grid column-->
