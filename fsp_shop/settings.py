@@ -27,8 +27,8 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv('DEBUG', 'False') == 'True')
 
-# ALLOWED_HOSTS = [str(os.getenv('DOMAIN_NAME')),]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [str(os.getenv('DOMAIN_NAME')),]
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -84,21 +84,21 @@ AUTH_USER_MODEL = 'users.User'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': str(os.getenv('DATABASE_ENGINE')),
-#         'NAME': str(os.getenv('DATABASE_NAME')),
-#         'USER': str(os.getenv('DATABASE_USER')),
-#         'PASSWORD': str(os.getenv('DATABASE_PASSWORD')),
-#         'HOST': str(os.getenv('DATABASE_HOST')),
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': str(os.getenv('DATABASE_ENGINE')),
+        'NAME': str(os.getenv('DATABASE_NAME')),
+        'USER': str(os.getenv('DATABASE_USER')),
+        'PASSWORD': str(os.getenv('DATABASE_PASSWORD')),
+        'HOST': str(os.getenv('DATABASE_HOST')),
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -160,8 +160,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL= True
 EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
-EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
+EMAIL_PORT = 587
 EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
-DEFAULT_FROM_EMAIL = str(os.getenv('DEFAULT_FROM_EMAIL'))
-SERVER_EMAIL = str(os.getenv('DEFAULT_FROM_EMAIL'))
+DEFAULT_FROM_EMAIL = str(os.getenv('EMAIL_HOST_USER'))
+SERVER_EMAIL = str(os.getenv('EMAIL_HOST_USER'))
