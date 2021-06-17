@@ -98,6 +98,7 @@ class Seo(models.Model):
         ('HOME' , 'Home Page'),
         ('ABOUT' , 'About Page'),
         ('FAQ' , 'FAQ'),
+        ('LIST','Product List Page'),
     ]
     page = models.CharField(
         max_length=7,

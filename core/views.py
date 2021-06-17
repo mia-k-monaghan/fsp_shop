@@ -191,11 +191,17 @@ class ProductListView(ListView):
             h1=setting_models.Content.objects.filter(type='H1',page='LIST').first()
         except ObjectDoesNotExist:
             h1=''
+        # seo data
+        try:
+            seo=setting_models.Seo.objects.get(page='LIST')
+        except ObjectDoesNotExist:
+            seo=''
 
         context = {
             'products': models.Product.objects.filter(archived=False)[0:],
             'content': content,
             'h1':h1,
+            'seo':seo,
         }
         return context
 
