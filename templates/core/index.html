@@ -51,28 +51,46 @@
       </div>
     </div>
 
-      {% endif %}
-      {% if h2 %}
-        <div class="mb-5 pt-5 text-center">
-          {% if request.user.is_superuser %}
-          <a class="float-right ml-4" style="color:black;" href="{% url 'settings:delete-content' pk=h2.pk %}?next={{ request.path|urlencode }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-          <a class="float-right"style="color:black;" href="{% url 'settings:update-content' pk=h2.pk %}?next={{ request.path|urlencode }}">
-            <i class="fas fa-pencil-alt"></i>
-          </a>
-          <br>
-          {% endif %}
-          <p class="h2">{{h2.heading}}</p>
-          <p>{{h2.details|linebreaks}}</p>
+    <div class="row py-5">
+      <div class="mx-auto col-xl-5">
+        <a class="btn btn-block btn-info btn-lg shadow-lg"href="#productSection">See the Paks</a>
+      </div>
+    </div>
 
-        </div>
-      {% else %}
-        {% if request.user.is_superuser %}
-        <div class="text-center">
-          <a class="float-right" style="color:black;" href="{% url 'settings:create-content' page='HOME' type='H2' %}?next={{ request.path|urlencode }}"><i class="fas fa-plus"></i></a>
-          <br>
-        </div>
-        {% endif %}
       {% endif %}
+      <div class="card-group my-5 mx-auto">
+        <div class="card">
+          <img class="card-img-top pb-3"src="{% static "img/index/What We Do.png" %}" alt="Full Stack Pak File">
+          <div class="card-body">
+            <h4 class="card-title">What do we do?</h5>
+            <p class="card-text">We develop affordable full-stack website project
+              file 'paks' for the startup entrepreneur looking to launch a new
+              business now.</p>
+            <p class="card-text lead">Big name website builders may look free at first, but
+              processing payments through these platforms can
+              end up costing $350-$1,000 annually. Full Stack Pak is here to change
+              that.</p>
+            <p class="card-text">Our Paks are simple—they meet your core needs of
+              payment processing, order fulfillment, and simple content displays.</p>
+            <p class="card-text lead">One-time Pak Purchase | No Recurring Fees Ever</p>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top pb-3"src="{% static "img/index/FSP_steps.png" %}?version=1" alt="1.Buy Pak 2.Deploy 3.Add Content">
+          <div class="card-body">
+            <h4 class="card-title">How does it work?</h5>
+            <p class="card-text lead">When you purchase a Pak, you are buying a fully
+            developed, ready-to-deploy Django website project file. </p>
+            <p class="card-text">1. Buy the Pak</p>
+            <p class="card-text">2. Delploy</p>
+            <p class="card-text">3. Add your Content!</p>
+            <p class="card-text lead">We built the website—you have complete control
+              over website deployment, hosting, and domain registration.</p>
+          </div>
+        </div>
+      </div>
     {% else %}
         <p class="display-4">Full Stack Pak</p>
         <p class="lead">The most affordable way to start your online business now. Simple Design. No Recurring Fees. Just deploy & enter your content.</p>
@@ -96,6 +114,8 @@
 
 
 {% if products %}
+<div id='productSection'>
+
 {% for product in featured_products %}
   <hr>
   <div class="row mt-3 pt-3">
@@ -124,6 +144,7 @@
 
   </div>
 {% endfor %}
+</div>
 {% else %}
   <div class="row mt-3">
     <!--Grid column-->
@@ -167,3 +188,44 @@
 
 {% endif %}
 {% endblock extra_footer %}
+
+{% block extra_scripts %}
+  <script type="text/javascript">
+  // Select all links with hashes
+$('a[href*="#"]')
+// Remove links that don't actually link to anything
+.not('[href="#"]')
+.not('[href="#0"]')
+.click(function(event) {
+ // On-page links
+ if (
+   location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+   &&
+   location.hostname == this.hostname
+ ) {
+   // Figure out element to scroll to
+   var target = $(this.hash);
+   target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+   // Does a scroll target exist?
+   if (target.length) {
+     // Only prevent default if animation is actually gonna happen
+     event.preventDefault();
+     $('html, body').animate({
+       scrollTop: target.offset().top
+     }, 500, function() {
+       // Callback after animation
+       // Must change focus!
+       var $target = $(target);
+       $target.focus();
+       if ($target.is(":focus")) { // Checking if the target was focused
+         return false;
+       } else {
+         $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+         $target.focus(); // Set focus again
+       };
+     });
+   }
+ }
+});
+  </script>
+{% endblock extra_scripts %}
