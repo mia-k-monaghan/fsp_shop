@@ -30,6 +30,7 @@ urlpatterns = [
     path('faq/', views.FAQView.as_view(), name='faq'),
     path('', include('core.urls')),
     path('',include('users.urls')),
+    path('', include('documentation.urls')),
     path('settings/',include('settings.urls')),
     url('^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 

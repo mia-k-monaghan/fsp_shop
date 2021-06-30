@@ -30,10 +30,10 @@
         <p class="display-4">Deployment Guide</p>
         <p class="lead">What is deployment? Put simply, deployment is the process of
           storing your website files online, making it possible for people to see your
-          website on the internet.</p>
+          website on the internet.<span id="step1"></span></p>
         </div>
         <hr>
-        <p id="step1"class="h3 pt-4">Step 1.	Choose a Host</p>
+        <p class="h3 pt-4">Step 1.	Choose a Host</p>
         <p>A website host stores the website files and makes the website accessible
           on the internet. There is a wide range of hosting services and platforms,
           but picking the right one depends on your needs. You must do your own
@@ -67,19 +67,22 @@
         <img class="rounded img-fluid"src="{% static "img/deploy/manual_config.png" %}" alt="">
         <p class="lead">Click "Next to finish setting up the web application."</p>
         <img class="rounded img-fluid"src="{% static "img/deploy/setup_finish.png" %}" alt="">
+        <br>
+        <span id="step2"></span>
 
-        <p id="step2"class="h3 mt-5 pt-5">Step 2.	Upload Website Files</p>
+        <p class="h3 mt-5 pt-5">Step 2.	Upload Website Files</p>
         <p class="lead">Under the Files Tab, click ‘Upload File’ and upload the
           Simple Subscription Pak zip file. After the upload is complete, click
           “Start a Bash Console Here”.</p>
         <img class="rounded img-fluid"src="{% static "img/deploy/upload_file.png" %}" alt="">
         <p class="lead pt-4">To unzip the file, enter the following into the console.</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id='step3'class="col-md-10 bg-dark text-light"><code class="language-python">
 unzip simple_subscription_pak.zip
 
 </code></pre>
 
-        <p id="step3"class="h3 pt-4">Step 3.	Setup Database</p>
+
+        <p class="h3 pt-4">Step 3.	Setup Database</p>
         <p class="lead">Click on the Databases Tab. If you have not yet initialized
           a database, click “Initialize MySQL Database”. Set a secure password for
           your database. After the database is initialized, take note of the username,
@@ -94,10 +97,10 @@ unzip simple_subscription_pak.zip
               <strong>subscription_shop/subscription_shop/settings.py</strong>. Refer to the
               Django documentation for specific details pertaining to your
               preferred database.</p>
-            <a class="btn btn-outline-dark mb-4" href="https://docs.djangoproject.com/en/3.2/ref/databases/" target="blank">Django Documentation</a>
+            <a id="step4"class="btn btn-outline-dark mb-4" href="https://docs.djangoproject.com/en/3.2/ref/databases/" target="blank">Django Documentation</a>
           </div>
 
-          <p id="step4"class="h3 pt-4">Step 4.	Set Environment Variables</p>
+          <p class="h3 pt-4">Step 4.	Set Environment Variables</p>
           <p>Each website has unique, identifying information stored in the form
             of variables. Most of these variables are stored in a secure .env file
             in the following location: <strong>subscription_shop/.env</strong></p>
@@ -113,22 +116,22 @@ unzip simple_subscription_pak.zip
             <li><a href="#databasevariables">DATABASE_USER</a> </li>
             <li><a href="#databasevariables">DATABASE_PASSWORD</a> </li>
             <li><a href="#databasevariables">DATABASE_HOST</a> </li>
-            <li><a href="#fullurl">FULL_WEBSITE_URL</a> </li>
+            <li id="secretkey"><a href="#fullurl">FULL_WEBSITE_URL</a> </li>
             <li><a href="#domain">DOMAIN_NAME</a> </li>
             <li><a href="#debug">DEBUG</a> </li>
           </ul>
-        <p id="secretkey"class="h5">SECRET_KEY</p>
+        <p class="h5">SECRET_KEY</p>
         <p>This variable refers to the Django Secret Key. The website will not
           function without a value set for this variable. Keep this variable secret!</p>
         <p class="lead">You can generate a Django secret key by using the Secret
           key generator at djecrety.ir</p>
         <a class="btn btn-outline-dark mb-4" href="https://djecrety.ir/" target="blank">Generate Secret Key</a>
         <p>Example:</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id="stripekeys"class="col-md-10 bg-dark text-light"><code class="language-python">
 SECRET_KEY='2@pluh&)#e0z@3_2dp)q6tx(dll*u^(x9-b5&z89$@md#2sc3%'
 
 </code></pre>
-        <p id="stripekeys"class="h5">STRIPE API KEYS</p>
+        <p class="h5">STRIPE API KEYS</p>
         <p>All Full Stack Paks are set up by default to connect with your Stripe account
           to process payments. You don’t need plugins or extra code—just enter your Stripe
           API keys. </p>
@@ -141,12 +144,12 @@ SECRET_KEY='2@pluh&)#e0z@3_2dp)q6tx(dll*u^(x9-b5&z89$@md#2sc3%'
           <strong>API Keys</strong> in the <strong>Developers</strong> section.</p>
         <p class="lead">For initial deployment, enter your test keys only.</p>
         <p>Example:</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id="webhook"class="col-md-10 bg-dark text-light"><code class="language-python">
 STRIPE_PUBLISHABLE_KEY='pk_test_123abc****'
 STRIPE_SECRET_KEY='sk_test_123abc***'
 
 </code></pre>
-        <p id="webhook"class="h5">STRIPE_SIGNING_SECRET</p>
+        <p class="h5">STRIPE_SIGNING_SECRET</p>
         <p>This variable refers to the signing secret variable associated with a
           Stripe webhook endpoint. </p>
         <p>If you are unfamiliar with Stripe webhooks, their purpose is to listen
@@ -179,11 +182,11 @@ STRIPE_SECRET_KEY='sk_test_123abc***'
         <p class="lead">Once created, the webhook endpoint will have a signing
           secret key. Click to reveal the key and save it in the .env file.</p>
         <p>Example:</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id="databasevariables"class="col-md-10 bg-dark text-light"><code class="language-python">
 STRIPE_SIGNING_SECRET='whsec_123abc****'
 
 </code></pre>
-        <p id="databasevariables"class="h5">DATABASE VARIABLES</p>
+        <p class="h5">DATABASE VARIABLES</p>
         <p class="lead">Refer to the database name, user, and host variables on the
           <strong>Databases</strong> Tab where you initialized the MySQL database in Step 3. Set each
           variable as indicated below.</p>
@@ -201,7 +204,7 @@ STRIPE_SIGNING_SECRET='whsec_123abc****'
               <li><strong>HOST:</strong> The host address for the database.</li>
           </ul>
           <p>Example:</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id="fullurl"class="col-md-10 bg-dark text-light"><code class="language-python">
 DATABASE_ENGINE='django.db.backends.mysql'
 DATABASE_NAME='yourusername$default'
 DATABASE_USER='yourusername'
@@ -209,36 +212,36 @@ DATABASE_PASSWORD='s3cur3p4ssw0rd'
 DATABASE_HOST='yourusername.mysql.pythonanywhere-services.com'
 
 </code></pre>
-          <p id="fullurl"class="h5">FULL_WEBSITE_URL</p>
+          <p class="h5">FULL_WEBSITE_URL</p>
           <p>This variable refers to the full URL of your website, including the
             “https://” prefix. If using the Free Beginner PythonAnywhere account,
             the full website URL will be: <strong>https://yourusername.pythonanywhere.com</strong></p>
           <p>Example:</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id="domain"class="col-md-10 bg-dark text-light"><code class="language-python">
 FULL_WEBSITE_URL='https://yourdomain.com'
 
 </code></pre>
-          <p id="domain"class="h5">DOMAIN_NAME</p>
+          <p class="h5">DOMAIN_NAME</p>
           <p>This variable refers to your domain. If using the Free Beginner
             PythonAnywhere account, your domain will be: <strong>yourusername.pythonanywhere.com</strong></p>
           <p>Example:</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id="debug"class="col-md-10 bg-dark text-light"><code class="language-python">
 DOMAIN_NAME='yourdomain.com'
 
 </code></pre>
-          <p id="debug"class="h5">DEBUG</p>
+          <p class="h5">DEBUG</p>
           <p>By default, debug is set to TRUE. If set to TRUE, the Debug variable
             nstructs the website to display traceback messages in the event of an
             error. It also changes how the website fetches media files.</p>
             <p class="lead">Ensure DEBUG is set to True for initial deployment.</p>
             <div class="py-2 mb-4 rounded bg-light container">
-              <p><strong>Note: </strong>Make sure you switch DEBUG to False before
+              <p>Note: </strong>Make sure you switch DEBUG to False before
                 production. You will not want website visitors seeing details about
-                your code. <strong>The DEBUG variable should always be set to ‘True’ or ‘False’,
+                your code. <strong id="step5">The DEBUG variable should always be set to ‘True’ or ‘False’,
                   with the first letter capitalized.</strong></p>
             </div>
 
-            <p id="step5"class="h3 pt-4">Step 5.	Install Requirements</p>
+            <p class="h3 pt-4">Step 5.	Install Requirements</p>
             <p class="lead">The Simple Subscription Pak Website requires some
               installations on the console to function properly. Perform the
               installations by completing the steps below.</p>
@@ -263,13 +266,13 @@ DOMAIN_NAME='yourdomain.com'
             </ol>
             <p class="lead">Keep the console open for Step 6.</p>
             <div class="py-2 mb-4 rounded bg-light container">
-              <p><strong>Note: </strong>Some of these commands (step 2 and 5)
+              <p id="step6"><strong>Note: </strong>Some of these commands (step 2 and 5)
                 may take more than a few minutes to complete. This is normal!
                 Enter the next command after the previous command has finished
                 running.</p>
             </div>
 
-            <p id="step6"class="h3 pt-4">Step 6.	Run Database Migrations</p>
+            <p class="h3 pt-4">Step 6.	Run Database Migrations</p>
             <p class="lead">The Simple Subscription Pak comes with a fully
               developed database to run your business. Migrate the database
               design to your MySQL database by entering the following command
@@ -281,9 +284,9 @@ DOMAIN_NAME='yourdomain.com'
               the following command into the console:</p>
 <pre class="col-md-10 bg-dark text-light"><code class="language-python">python manage.py createsuperuser
 </code></pre>
-            <p class="lead">Follow the prompts for setting a username and password.</p>
+            <p id="step7"class="lead">Follow the prompts for setting a username and password.</p>
 
-            <p id="step7"class="h3 pt-4">Step 7.	Load Environment Variables in WSGI file</p>
+            <p class="h3 pt-4">Step 7.	Load Environment Variables in WSGI file</p>
             <p>For the Simple Subscription Pak to function properly, we must tell
               the application where to find the environment variables set in Step 4.
               To do this, complete the steps below.</p>
@@ -298,7 +301,7 @@ import sys
 
 path = '/home/yourusername/subscription_shop'
 if path not in sys.path:
-sys.path.append(path)
+  sys.path.append(path)
 
 from dotenv import load_dotenv
 load_dotenv(os.path.join(path, '.env'))
@@ -310,9 +313,9 @@ application = get_wsgi_application()
 
 </code></pre>
           <p><strong>Be sure to replace <em>yourusername</em> with your PythonAnywhere username!</strong></p>
-          <p class="lead">Save the file and return to the <strong>Web</strong> tab.</p>
+          <p id="step8"class="lead">Save the file and return to the <strong>Web</strong> tab.</p>
 
-          <p id="step8"class="h3 pt-4">Step 8.	Set Website File Paths</p>
+          <p class="h3 pt-4">Step 8.	Set Website File Paths</p>
           <p>For the Simple Subscription Pak to function properly, you must tell
             the application where to find the website source code, virtual environment
             (created in Step 5), website images, styling, and media.</p>
@@ -357,7 +360,7 @@ application = get_wsgi_application()
 
             <p class="lead">On the Web tab under the Security section, enable
                 Force HTTPS. Reload the Web Application at the top of the page.</p>
-            <p class="lead">Click on your website URL at the top of the Web page to visit
+            <p class="lead">Click on your website URL at the top of the Web tab to visit
               your deployed website!
             <div class="py-2 mb-4 rounded bg-light container">
               <p><strong>Note: </strong>If you experience any errors, visit the
