@@ -4,6 +4,7 @@
 {% block content %}
 <div class="container">
   <div class="row pt-5">
+    {% if ordered %}
     <div class="col-md-3 pt-4">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Contents" aria-controls="Contents" aria-expanded="false" aria-label="Toggle navigation">
@@ -370,6 +371,16 @@ application = get_wsgi_application()
             </div>
 
     </div>
+  {% else %}
+  <div class="mb-5 pb-5 text-center mx-auto">
+    <p class="display-4 pb-4">Nothing to See Here!</p>
+    <hr>
+    <p class="lead">You don't have permission to view this page.</p>
+    <p class="lead mb-5 pb-5">Login to view deployment guides, or contact support@fullstackpak.com if
+      you're having trouble viewing your resources.</p>
+
+  </div>
+  {% endif %}
 
   </div>
 
