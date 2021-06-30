@@ -83,6 +83,9 @@ class IndexView(TemplateView):
         }
         return context
 
+class ResourceView(TemplateView):
+    template_name='core/resources.html'
+
 class AboutView(TemplateView):
     template_name = 'core/about.html'
 
