@@ -396,13 +396,31 @@ application = get_wsgi_application()
               <td>/home/<em>yourusername</em>/venv/lib/python3.7/site-packages/django/contrib/admin/static/admin</td>
             </tr>
             <tr>
-              <td><strong>Media Folder</strong></td>
+              <td id="step9"><strong>Media Folder</strong></td>
               <td>/media/</td>
               <td>/home/<em>yourusername</em>/photo_project/media</td>
             </tr>
           </table>
 
-          <p id="step9"class="h3 pt-4">Step 9.	Test the Website</p>
+          <p class="h3 pt-4">Step 9.	Test the Website</p>
+          <p>Ensure the following PythonAnywhere, Stripe, and Email account settings are
+            correctly set before testing.</p>
+          <p class="h5">EMAIL ACCOUNT SETTINGS</p>
+          <p class="lead">If using a free Gmail account, go to
+            the <strong>Gmail Account Settings</strong> and click <strong>Security</strong>.
+            Under the <strong>Less Secure App Access</strong> section, click to
+            allow less secure apps. If this setting is not turned on, Gmail will
+            block the account from sending password recovery emails.</p>
+            <div class="py-2 mb-4 rounded bg-light container">
+              <p><strong>Note: </strong>The above email settings only apply if using a Gmail Account.</p>
+            </div>
+            <p class="h5">STRIPE ACCOUNT SETTINGS</p>
+            <p class="font-weight-bold">Enable Client-Only Integration</p>
+            <p class="lead">In your Stripe account, go to <strong>Settings > Checkout
+              and Payment Links</strong>. Under the <strong>Next Steps</strong> section,
+              click to enable <strong>Client-Only Integration</strong>. Save your full
+              website URL in the Domains field. </p>
+          <p class="h5">PYTHONANYWHERE ACCOUNT SETTINGS</p>
           <p>The Website application is now ready for testing. Complete the
             steps below to finish deployment.</p>
 
@@ -416,6 +434,22 @@ application = get_wsgi_application()
               forget to set the DEBUG variable to False in the .env file after
               testing. Always reload the application for changes to go into effect.</p>
             </div>
+            <div class="py-2 mb-4 rounded bg-light container">
+              <p><strong>Note on Password Protection: </strong>Under the Security
+                section, PythonAnywhere provides an option to password protect
+                your website while it is under development. Feel free to use this
+                feature, but keep in mind that Stripe webhooks will not work while
+                this feature is turned on.</p>
+            </div>
+            <div class="py-2 mb-4 rounded bg-light container">
+              <p><strong>Note on Testing Stripe Integration: </strong>To test Stripe integration, add a test
+                product in your Photo Pak administration page.
+                View the test product on your website and click Add to Cart. Click on the Cart and Checkout. Use the
+                test credit card number 4242 4242 4242 4242 to test Stripe Checkout Integration.</p>
+
+                <p class="font-weight-bold">Don't forget to switch to your live
+                  Stripe API keys after testing! </p>
+                </div>
 
     </div>
   {% else %}
