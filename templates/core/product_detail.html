@@ -30,10 +30,8 @@
           <h2 class="card-title">{{product.title}}</h2>
 
             <p class="card-text"><strong>{{product.description|linebreaks|safe}}</strong></p>
-            <p class="card-text">{{product.additional_details|linebreaks|safe}}
-            </p>
             <button
-            class="btn btn-outline-dark shadow-sm btn-lg btn-block"
+            class="btn btn-info shadow-sm btn-lg btn-block"
             id="checkout-button-subscribe"
             role="link"
             type="submit"
@@ -41,6 +39,19 @@
             Buy Now
           </button>
           <div id="error-message"></div>
+          {% if product.additional_details|wordcount > 10 %}
+            <div id="shorttext">
+              <p class="card-text">{{product.additional_details|linebreaks|truncatewords:10}}
+              </p>
+            </div>
+            <div id='fulltext'hidden>
+              <p class="card-text">{{product.additional_details|linebreaks}}</p>
+            </div>
+              <button id="showdetails" class="btn btn-outline-dark btn-block showhide" type="button" name="button">Show More</button>
+              <button hidden id="hidedetails" class="btn btn-outline-dark btn-block showhide" type="button" name="button">Show Less</button>
+          {% else %}
+            <p class="card-text">{{product.additional_details|linebreaks}}</p>
+          {% endif %}
         </div>
 
       </div>
@@ -48,44 +59,39 @@
   </div>
 </div>
 </div>
-
 {% endblock content %}
 
 {% block extra_scripts %}
 <script>
     (function() {
     var stripe = Stripe('{{stripe_publishable_key}}');
-
     var checkoutButton = document.getElementById('checkout-button-subscribe');
     checkoutButton.addEventListener('click', function () {
-    /*
-     * When the customer clicks on the button, redirect
-     * them to Checkout.
-     */
     stripe.redirectToCheckout({
       lineItems: [{price: '{{product.stripe_id}}', quantity: 1}],
       mode: 'payment',
-      /*
-       * Do not rely on the redirect to the successUrl for fulfilling
-       * purchases, customers may not always reach the success_url after
-       * a successful payment.
-       * Instead use one of the strategies described in
-       * https://stripe.com/docs/payments/checkout/fulfill-orders
-       */
       successUrl: '{{success_url}}',
       cancelUrl: '{{cancel_url}}',
     })
     .then(function (result) {
       if (result.error) {
-        /*
-         * If `redirectToCheckout` fails due to a browser or network
-         * error, display the localized error message to your customer.
-         */
         var displayError = document.getElementById('error-message');
         displayError.textContent = result.error.message;
       }
     });
     });
     })();
+</script>
+
+<script type="text/javascript">
+  var showhidebuttons = document.getElementsByClassName("showhide")
+  for(var i=0; i < showhidebuttons.length; i++ ) {
+    showhidebuttons[i].addEventListener("click", function() {
+      document.getElementById("fulltext").toggleAttribute('hidden');
+      document.getElementById("shorttext").toggleAttribute('hidden');
+      document.getElementById("showdetails").toggleAttribute('hidden');
+      document.getElementById("hidedetails").toggleAttribute('hidden');
+  })
+  }
 </script>
 {% endblock extra_scripts %}
