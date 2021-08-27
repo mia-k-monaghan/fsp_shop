@@ -78,7 +78,7 @@
         <img class="rounded img-fluid"src="{% static "img/deploy/upload_file.png" %}" alt="">
         <p class="lead pt-4">To unzip the file, enter the following into the console.</p>
 <pre id='step3'class="col-md-10 bg-dark text-light"><code class="language-python">
-unzip simple_photo_pak.zip
+unzip photo_pak.zip
 
 </code></pre>
 
@@ -93,9 +93,9 @@ unzip simple_photo_pak.zip
             <p><strong>Note about Databases: </strong>By default, the Simple
               Subscription Pak is set up to connect to a MySQL database. If you
               would like to change this setting, the database variables are located
-              in the file location: <strong>photo_project/.env</strong>, and additional database
+              in the file location: <strong>photo_pak/.env</strong>, and additional database
               settings are located in the settings file located in :
-              <strong>photo_project/photo_project/settings.py</strong>. Refer to the
+              <strong>photo_pak/photo_project/settings.py</strong>. Refer to the
               Django documentation for specific details pertaining to your
               preferred database.</p>
             <a id="step4"class="btn btn-outline-dark mb-4" href="https://docs.djangoproject.com/en/3.2/ref/databases/" target="blank">Django Documentation</a>
@@ -104,15 +104,12 @@ unzip simple_photo_pak.zip
           <p class="h3 pt-4">Step 4.	Set Environment Variables</p>
           <p>Each website has unique, identifying information stored in the form
             of variables. Most of these variables are stored in a secure .env file
-            in the following location: <strong>photo_project/.env</strong></p>
+            in the following location: <strong>photo_pak/.env</strong></p>
           <p>For your website to function, each variable in this file must be
             accurately set. The Simple Photo Pak contains the following variables:</p>
           <ul>
             <li><a href="#fullurl">FULL_URL</a> </li>
             <li><a href="#secretkey">SECRET_KEY</a></li>
-            <li><a href="#stripekeys">STRIPE_PUBLISHABLE_KEY</a> </li>
-            <li><a href="#stripekeys">STRIPE_SECRET_KEY</a> </li>
-            <li><a href="#webhook">STRIPE_SIGNING_SECRET</a> </li>
             <li><a href="#email">EMAIL_HOST</a> </li>
             <li><a href="#email">EMAIL_HOST_USER</a> </li>
             <li><a href="#email">EMAIL_HOST_PASSWORD</a> </li>
@@ -142,61 +139,8 @@ FULL_URL='https://yourdomain.com'
           key generator at djecrety.ir</p>
         <a class="btn btn-outline-dark mb-4" href="https://djecrety.ir/" target="blank">Generate Secret Key</a>
         <p>Example:</p>
-<pre id="stripekeys"class="col-md-10 bg-dark text-light"><code class="language-python">
-SECRET_KEY='2@pluh&)#e0z@3_2dp)q6tx(dll*u^(x9-b5&z89$@md#2sc3%'
-
-</code></pre>
-        <p class="h5">STRIPE API KEYS</p>
-        <p>All Full Stack Paks are set up by default to connect with your Stripe account
-          to process payments. You don’t need plugins or extra code—just enter your Stripe
-          API keys. </p>
-        <p>If you don’t already have one, you can sign up for a Stripe account
-          for free. After signup, test API keys will be ready for immediate use.
-          After verifying your business details, live keys are available and you
-          can start accepting payments on your website.</p>
-        <a class="btn btn-outline-dark mb-4" href="https://stripe.com/" target="blank">Get a Stripe Account</a>
-        <p>You can find your test and live keys on your Stripe Dashboard under
-          <strong>API Keys</strong> in the <strong>Developers</strong> section.</p>
-        <p class="lead">For initial deployment, enter your test keys only.</p>
-        <p>Example:</p>
-<pre id="webhook"class="col-md-10 bg-dark text-light"><code class="language-python">
-STRIPE_PUBLISHABLE_KEY='pk_test_123abc****'
-STRIPE_SECRET_KEY='sk_test_123abc***'
-
-</code></pre>
-        <p class="h5">STRIPE_SIGNING_SECRET</p>
-        <p>This variable refers to the signing secret key associated with a
-          Stripe webhook endpoint. </p>
-        <p>If you are unfamiliar with Stripe webhooks, their purpose is to listen
-          for specific events related to Stripe activities (completed payments, etc)
-          and update your website database accordingly.</p>
-        <p class="lead">For cutomers to be able to download photos after purchase,
-          you must create a Stripe Webhook endpoint. Create a Stripe webhook by
-          completing these steps:</p>
-        <ol>
-          <li>In your Stripe Dashboard, navigate to <strong>Webhooks</strong>
-            under the <strong>Developers</strong> Section</li>
-          <li>Click “Add Endpoint”</li>
-          <li>Enter your website domain followed by “/webhooks” into the Endpoint
-            URL field. If you are using a Free Beginner PythonAnywhere domain,
-            the Endpoint URL will be <strong>https://yourusername.pythonanywhere.com/webhooks</strong></li>
-          <li>Listen for the below event:</li>
-          <ul>
-            <li><strong>Checkout.session.completed</strong></li>
-          </ul>
-        </ol>
-        <img style="width:30em;"class="rounded img-fluid"src="{% static "img/deploy/webhook_setup.png" %}" alt="">
-        <div class="py-2 mb-4 rounded bg-light container">
-          <p><strong>Note: </strong>If either of the webhook requirements are not
-            satisfied, or the Endpoint URL is misspelled (Example: it reads
-            <strong>https://yourdomain.com/webhooks/</strong> instead of <strong>https://yourdomain.com/webhooks</strong>
-            , the website will not function properly, and customers will not be able to download purchases. </p>
-        </div>
-        <p class="lead">Once created, the webhook endpoint will have a signing
-          secret key. Click to reveal the key and save it in the .env file.</p>
-        <p>Example:</p>
 <pre id="email"class="col-md-10 bg-dark text-light"><code class="language-python">
-STRIPE_SIGNING_SECRET='whsec_123abc****'
+SECRET_KEY='2@pluh&)#e0z@3_2dp)q6tx(dll*u^(x9-b5&z89$@md#2sc3%'
 
 </code></pre>
 
@@ -240,7 +184,7 @@ DEFAULT_FROM_EMAIL='yourusername@gmail.com'
         <div class="py-2 mb-4 rounded bg-light container">
           <p id="databasevariables"><strong>Note: </strong>By default, The Simple
             Photo Pak sets the outgoing port to 587 using TLS. If you want to
-            change these settings, they are located in <strong>photo_project/photo_project/settings.py</strong>. </p>
+            change these settings, they are located in <strong>photo_pak/photo_project/settings.py</strong>. </p>
         </div>
 
         <p class="h5">DATABASE VARIABLES</p>
@@ -305,7 +249,7 @@ DOMAIN_NAME='yourdomain.com'
 <pre class="col-md-10 bg-dark text-light"><code class="language-python">source venv/bin/activate
 </code></pre>
               <li>Navigate to the project folder: </li>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">cd photo_project/
+<pre class="col-md-10 bg-dark text-light"><code class="language-python">cd photo_pak/
 </code></pre>
 <li>Install the requirements: </li>
 <pre class="col-md-10 bg-dark text-light"><code class="language-python">pip install -r requirements.txt
@@ -347,7 +291,7 @@ DOMAIN_NAME='yourdomain.com'
 import os
 import sys
 
-path = '/home/yourusername/photo_project'
+path = '/home/yourusername/photo_pak'
 if path not in sys.path:
   sys.path.append(path)
 
@@ -369,7 +313,7 @@ application = get_wsgi_application()
             (created in Step 5), website images, styling, and media.</p>
           <p class="lead">Under the Code Section, enter the path to the Source Code.
             The Source Code path is the path to the main project folder:</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">/home/yourusername/photo_project
+<pre class="col-md-10 bg-dark text-light"><code class="language-python">/home/yourusername/photo_pak
 </code></pre>
           <p class="lead">Under the Virtualenv Section, enter the path to the
             virtual environment created in Step 5: </p>
@@ -388,7 +332,7 @@ application = get_wsgi_application()
             <tr>
               <td><strong>Static Folder</strong></td>
               <td>/static/</td>
-              <td>/home/<em>yourusername</em>/photo_project/static</td>
+              <td>/home/<em>yourusername</em>/photo_pak/static</td>
             </tr>
             <tr>
               <td><strong>Admin Static Folder</strong></td>
@@ -398,13 +342,34 @@ application = get_wsgi_application()
             <tr>
               <td id="step9"><strong>Media Folder</strong></td>
               <td>/media/</td>
-              <td>/home/<em>yourusername</em>/photo_project/media</td>
+              <td>/home/<em>yourusername</em>/photo_pak/media</td>
             </tr>
           </table>
 
           <p class="h3 pt-4">Step 9.	Test the Website</p>
           <p>Ensure the following PythonAnywhere, Stripe, and Email account settings are
             correctly set before testing.</p>
+            <p class="h5">PYTHONANYWHERE ACCOUNT SETTINGS</p>
+            <p>The Website application is now ready for testing. Complete the
+              steps below to finish deployment.</p>
+
+              <p class="lead">On the Web tab under the Security section, enable
+                Force HTTPS. Reload the Web Application at the top of the page.</p>
+                <p class="lead">Click on your website URL at the top of the Web tab to visit
+                  your deployed website!
+                  <div class="py-2 mb-4 rounded bg-light container">
+                    <p><strong>Note: </strong>If you experience any errors, visit the
+                      error logs on the Web tab to diagnose and solve the issue. Don’t
+                      forget to set the DEBUG variable to False in the .env file after
+                      testing. Always reload the application for changes to go into effect.</p>
+                    </div>
+                    <div class="py-2 mb-4 rounded bg-light container">
+                      <p><strong>Note on Password Protection: </strong>Under the Security
+                        section, PythonAnywhere provides an option to password protect
+                        your website while it is under development. Feel free to use this
+                        feature, but keep in mind that Stripe webhooks will not work while
+                        this feature is turned on.</p>
+                      </div>
           <p class="h5">EMAIL ACCOUNT SETTINGS</p>
           <p class="lead">If using a free Gmail account, go to
             the <strong>Gmail Account Settings</strong> and click <strong>Security</strong>.
@@ -415,32 +380,48 @@ application = get_wsgi_application()
               <p><strong>Note: </strong>The above email settings only apply if using a Gmail Account.</p>
             </div>
             <p class="h5">STRIPE ACCOUNT SETTINGS</p>
-            <p class="font-weight-bold">Enable Client-Only Integration</p>
-            <p class="lead">In your Stripe account, go to <strong>Settings > Checkout
-              and Payment Links</strong>. Under the <strong>Next Steps</strong> section,
-              click to enable <strong>Client-Only Integration</strong>. Save your full
-              website URL in the Domains field. </p>
-          <p class="h5">PYTHONANYWHERE ACCOUNT SETTINGS</p>
-          <p>The Website application is now ready for testing. Complete the
-            steps below to finish deployment.</p>
-
-            <p class="lead">On the Web tab under the Security section, enable
-                Force HTTPS. Reload the Web Application at the top of the page.</p>
-            <p class="lead">Click on your website URL at the top of the Web tab to visit
-              your deployed website!
-            <div class="py-2 mb-4 rounded bg-light container">
-              <p><strong>Note: </strong>If you experience any errors, visit the
-              error logs on the Web tab to diagnose and solve the issue. Don’t
-              forget to set the DEBUG variable to False in the .env file after
-              testing. Always reload the application for changes to go into effect.</p>
-            </div>
-            <div class="py-2 mb-4 rounded bg-light container">
-              <p><strong>Note on Password Protection: </strong>Under the Security
-                section, PythonAnywhere provides an option to password protect
-                your website while it is under development. Feel free to use this
-                feature, but keep in mind that Stripe webhooks will not work while
-                this feature is turned on.</p>
-            </div>
+            <p class="font-weight-bold">Add Stripe API Keys to Pak Settings</p>
+            <p>All Full Stack Paks are set up by default to connect with your Stripe account
+            to process payments. You don’t need plugins or extra code—just enter your Stripe
+            API keys into your Pak Settings. (You can find <strong>Pak settings </strong>by clicking the <strong>gear icon</strong> on the Navbar of your website)</p>
+          <p>If you don’t already have one, you can sign up for a Stripe account
+            for free. After signup, test API keys will be ready for immediate use.
+            After verifying your business details, live keys are available and you
+            can start accepting payments on your website.</p>
+          <a class="btn btn-outline-dark mb-4" href="https://stripe.com/" target="blank">Get a Stripe Account</a>
+          <p>You can find your test and live keys on your Stripe Dashboard under
+            <strong>API Keys</strong> in the <strong>Developers</strong> section.
+            Copy and paste your Stripe Keys into your Pak Settings.</p>
+            <p class="font-weight-bold">Add Webhook Endpoint</p>
+              <p>If you are unfamiliar with Stripe webhooks, their purpose is to listen
+                for specific events related to Stripe activities (completed payments,
+                canceled subscriptions, etc) and update your website database accordingly.</p>
+              <p class="lead">For completed orders to show up on the website administration page,
+                you must create a Stripe Webhook endpoint. Create a Stripe webhook by
+                completing these steps:</p>
+              <ol>
+                <li>In your Stripe Dashboard, navigate to <strong>Webhooks</strong>
+                  under the <strong>Developers</strong> Section</li>
+                <li>Click “Add Endpoint”</li>
+                <li>Enter your full website url followed by “/webhooks” into the Endpoint
+                  URL field. If you are using a Free Beginner PythonAnywhere domain,
+                  the Endpoint URL will be <strong>https://yourusername.pythonanywhere.com/webhooks</strong></li>
+                <li>Listen for the below event:</li>
+                <ul>
+                  <li><strong>Checkout.session.completed</strong></li>
+                </ul>
+              </ol>
+              <img style="width:30em;"class="rounded img-fluid"src="{% static "img/deploy/webhook_setup.png" %}" alt="">
+              <div class="py-2 mb-4 rounded bg-light container">
+                <p><strong>Note: </strong>If either of the webhook requirements are not
+                  satisfied, or the Endpoint URL is misspelled (Example: it reads
+                  <strong>https://yourdomain.com/webhooks/</strong> instead of <strong>https://yourdomain.com/webhooks</strong>
+                  , the website will not function properly and will fail to track subscription
+                  orders and fulfillment on the website administration page.</p>
+              </div>
+              <p class="lead">Once created, the webhook endpoint will have a signing
+                secret key. Click to reveal the key and save it in your Pak Stripe
+                Settings with your Stripe Seceret and Publishable API Keys.</p>
             <div class="py-2 mb-4 rounded bg-light container">
               <p><strong>Note on Testing Stripe Integration: </strong>To test Stripe integration, add a test
                 product in your Photo Pak administration page.
