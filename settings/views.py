@@ -8,13 +8,13 @@ from django.urls import reverse
 from . import models
 
 
-class IconView(TemplateView,LoginRequiredMixin):
+class IconView(LoginRequiredMixin, TemplateView):
     template_name = 'settings/set_icons.html'
-class ThemeView(TemplateView,LoginRequiredMixin):
+class ThemeView(LoginRequiredMixin, TemplateView):
     template_name = 'settings/set_themes.html'
-class SocialView(TemplateView,LoginRequiredMixin):
+class SocialView(LoginRequiredMixin, TemplateView):
     template_name = 'settings/set_social.html'
-class OptionalPageView(TemplateView,LoginRequiredMixin):
+class OptionalPageView(LoginRequiredMixin, TemplateView):
     template_name = 'settings/set_pages.html'
 
     def get_context_data(self,**kwargs):
@@ -33,7 +33,7 @@ class OptionalPageView(TemplateView,LoginRequiredMixin):
 
         return context
 
-class CreateContentView(CreateView, LoginRequiredMixin):
+class CreateContentView(LoginRequiredMixin, CreateView):
     model=models.Content
     fields=['heading','details']
 
@@ -48,7 +48,7 @@ class CreateContentView(CreateView, LoginRequiredMixin):
         form.instance.type=self.kwargs['type']
         return super(CreateContentView, self).form_valid(form)
 
-class UpdateContentView(UpdateView, LoginRequiredMixin):
+class UpdateContentView(LoginRequiredMixin, UpdateView):
     model=models.Content
     fields=['heading','details']
 
@@ -58,7 +58,7 @@ class UpdateContentView(UpdateView, LoginRequiredMixin):
             return next_url
         return reverse('core:index')
 
-class DeleteContentView(DeleteView, LoginRequiredMixin):
+class DeleteContentView(LoginRequiredMixin, DeleteView):
     model=models.Content
 
     def get_success_url(self):
@@ -67,7 +67,7 @@ class DeleteContentView(DeleteView, LoginRequiredMixin):
             return next_url
         return reverse('core:index')
 
-class CreateImageView(CreateView, LoginRequiredMixin):
+class CreateImageView(LoginRequiredMixin, CreateView):
     model=models.Image
     fields = ['image','alt']
 
@@ -81,7 +81,7 @@ class CreateImageView(CreateView, LoginRequiredMixin):
         form.instance.type=self.kwargs['type']
         return super(CreateImageView, self).form_valid(form)
 
-class UpdateImageView(UpdateView, LoginRequiredMixin):
+class UpdateImageView(LoginRequiredMixin, UpdateView):
     model=models.Image
     fields = ['image','alt']
 
@@ -91,7 +91,7 @@ class UpdateImageView(UpdateView, LoginRequiredMixin):
             return next_url
         return reverse('core:index')
 
-class DeleteImageView(DeleteView, LoginRequiredMixin):
+class DeleteImageView(LoginRequiredMixin, DeleteView):
     model=models.Image
 
     def get_success_url(self):
@@ -100,7 +100,7 @@ class DeleteImageView(DeleteView, LoginRequiredMixin):
             return next_url
         return reverse('core:index')
 
-class CreateThemeView(CreateView, LoginRequiredMixin):
+class CreateThemeView(LoginRequiredMixin, CreateView):
     model=models.Theme
     fields=['text_color','background_color']
 
@@ -114,7 +114,7 @@ class CreateThemeView(CreateView, LoginRequiredMixin):
         form.instance.type=self.kwargs['type']
         return super(CreateThemeView, self).form_valid(form)
 
-class UpdateThemeView(UpdateView, LoginRequiredMixin):
+class UpdateThemeView(LoginRequiredMixin, UpdateView):
     model=models.Theme
     fields=['text_color','background_color']
 
@@ -124,7 +124,7 @@ class UpdateThemeView(UpdateView, LoginRequiredMixin):
             return next_url
         return reverse('core:index')
 
-class DeleteThemeView(DeleteView, LoginRequiredMixin):
+class DeleteThemeView(LoginRequiredMixin, DeleteView):
     model=models.Theme
 
     def get_success_url(self):
@@ -133,7 +133,7 @@ class DeleteThemeView(DeleteView, LoginRequiredMixin):
             return next_url
         return reverse('core:index')
 
-class CreateSocialView(CreateView, LoginRequiredMixin):
+class CreateSocialView(LoginRequiredMixin, CreateView):
     model=models.Social
     fields=['link']
 
@@ -155,7 +155,7 @@ class CreateSocialView(CreateView, LoginRequiredMixin):
         form.instance.type=self.kwargs['type']
         return super(CreateSocialView, self).form_valid(form)
 
-class UpdateSocialView(UpdateView, LoginRequiredMixin):
+class UpdateSocialView(LoginRequiredMixin, UpdateView):
     model=models.Social
     fields=['link','display']
 
@@ -165,7 +165,7 @@ class UpdateSocialView(UpdateView, LoginRequiredMixin):
             return next_url
         return reverse('core:index')
 
-class DeleteSocialView(DeleteView, LoginRequiredMixin):
+class DeleteSocialView(LoginRequiredMixin, DeleteView):
     model=models.Social
 
     def get_success_url(self):
@@ -174,7 +174,7 @@ class DeleteSocialView(DeleteView, LoginRequiredMixin):
             return next_url
         return reverse('core:index')
 
-class CreateDisplayPageView(CreateView, LoginRequiredMixin):
+class CreateDisplayPageView(LoginRequiredMixin, CreateView):
     model=models.DisplayPage
     template_name = 'settings/display_page_form.html'
     fields=['navbar_label','display']
@@ -197,7 +197,7 @@ class CreateDisplayPageView(CreateView, LoginRequiredMixin):
         form.instance.page=self.kwargs['page']
         return super(CreateDisplayPageView, self).form_valid(form)
 
-class UpdateDisplayPageView(UpdateView, LoginRequiredMixin):
+class UpdateDisplayPageView(LoginRequiredMixin, UpdateView):
     model=models.DisplayPage
     template_name = 'settings/display_page_form.html'
     fields=['navbar_label','display']

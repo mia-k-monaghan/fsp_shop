@@ -47,7 +47,7 @@ class AccountSetUpView(FormView):
 
         return valid
 
-class ProfileView(View, LoginRequiredMixin):
+class ProfileView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         user = self.request.user
         order_list = Order.objects.filter(user=user)
