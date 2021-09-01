@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block meta_block %}
 {% endblock meta_block %}
 
@@ -17,9 +17,21 @@
   {% for order in orders %}
     <div class="col-lg-5 col-md-6 mb-4 mx-auto">
       <div class="card shadow">
-      <div class="view overlay">
-          <img src="{{order.product.image.url}}" class="card-img-top" alt="{{order.product.title}}">
-      </div>
+        <!--Product Image/Video-->
+        {% if order.product.images.all.0 %}
+          {% if order.product.images.all.0.type == 'IMG' %}
+            <!--Image-->
+            <img src="{{order.product.images.all.0.image.url}}" class="img-fluid card-img-top shadow-sm" alt="{{order.product.title}}">
+          {% else %}
+          <!--Video-->
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item card-img-top shadow-sm"src="{{order.product.images.all.0.video_embed_url}}"></iframe>
+          </div>
+          {% endif %}
+        {% else %}
+        <!--Default Blank Product Image-->
+          <img src="{% static "img/Default_Blank_Product.png" %}" class="img-fluid card-img-top shadow-sm" alt="{{order.product.title}}">
+        {% endif %}
         <div class="card-body">
           <h3 class="card-title text-center">{{order.product.title}}</h3>
           <p class="card-text text-center">{{order.product.description}}</p>
