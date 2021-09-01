@@ -21,6 +21,8 @@ class OrderAdmin(ImportExportModelAdmin):
     list_display = ['user','product','order_date']
     list_display_links = ['user']
 
+class ProductImageAdmin(admin.StackedInline):
+    model = models.ProductImage
 class ProductResource(resources.ModelResource):
     class Meta:
         model=models.Product
@@ -34,5 +36,6 @@ class ProductAdmin(ImportExportModelAdmin):
     search_fields = ['stripe_id','title']
     list_display = ['title','featured','archived']
     list_display_links = ['title']
+    inlines = [ProductImageAdmin]
 
 admin.site.register(models.Product,ProductAdmin)

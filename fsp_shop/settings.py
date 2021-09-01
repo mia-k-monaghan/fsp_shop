@@ -161,7 +161,6 @@ SUCCESS_URL = str(os.getenv('SUCCESS_URL'))
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-# EMAIL_USE_SSL= True
 EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
 EMAIL_PORT = 587
 EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))

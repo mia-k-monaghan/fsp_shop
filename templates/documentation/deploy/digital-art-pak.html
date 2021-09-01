@@ -78,7 +78,7 @@
         <img class="rounded img-fluid"src="{% static "img/deploy/upload_file.png" %}" alt="">
         <p class="lead pt-4">To unzip the file, enter the following into the console.</p>
 <pre id='step3'class="col-md-10 bg-dark text-light"><code class="language-python">
-unzip photo_pak.zip
+unzip digital_art_pak.zip
 
 </code></pre>
 
@@ -93,9 +93,9 @@ unzip photo_pak.zip
             <p><strong>Note about Databases: </strong>By default, the Simple
               Subscription Pak is set up to connect to a MySQL database. If you
               would like to change this setting, the database variables are located
-              in the file location: <strong>photo_pak/.env</strong>, and additional database
+              in the file location: <strong>digital_art_pak/.env</strong>, and additional database
               settings are located in the settings file located in :
-              <strong>photo_pak/photo_project/settings.py</strong>. Refer to the
+              <strong>digital_art_pak/digital_art_pak/settings.py</strong>. Refer to the
               Django documentation for specific details pertaining to your
               preferred database.</p>
             <a id="step4"class="btn btn-outline-dark mb-4" href="https://docs.djangoproject.com/en/3.2/ref/databases/" target="blank">Django Documentation</a>
@@ -104,11 +104,12 @@ unzip photo_pak.zip
           <p class="h3 pt-4">Step 4.	Set Environment Variables</p>
           <p>Each website has unique, identifying information stored in the form
             of variables. Most of these variables are stored in a secure .env file
-            in the following location: <strong>photo_pak/.env</strong></p>
+            in the following location: <strong>digital_art_pak/.env</strong></p>
           <p>For your website to function, each variable in this file must be
             accurately set. The Simple Photo Pak contains the following variables:</p>
           <ul>
             <li><a href="#fullurl">FULL_URL</a> </li>
+            <li><a href="#domain">DOMAIN_NAME</a> </li>
             <li><a href="#secretkey">SECRET_KEY</a></li>
             <li><a href="#email">EMAIL_HOST</a> </li>
             <li><a href="#email">EMAIL_HOST_USER</a> </li>
@@ -117,9 +118,8 @@ unzip photo_pak.zip
             <li><a href="#databasevariables">DATABASE_ENGINE</a> </li>
             <li><a href="#databasevariables">DATABASE_NAME</a> </li>
             <li><a href="#databasevariables">DATABASE_USER</a> </li>
-            <li><a href="#databasevariables">DATABASE_PASSWORD</a> </li>
-            <li id="fullurl"><a href="#databasevariables">DATABASE_HOST</a> </li>
-            <li><a href="#domain">DOMAIN_NAME</a> </li>
+            <li id="fullurl"><a href="#databasevariables">DATABASE_PASSWORD</a> </li>
+            <li><a href="#databasevariables">DATABASE_HOST</a> </li>
             <li><a href="#debug">DEBUG</a> </li>
           </ul>
 
@@ -128,10 +128,19 @@ unzip photo_pak.zip
           “https://” prefix. If using the Free Beginner PythonAnywhere account,
           the full website URL will be: <strong>https://yourusername.pythonanywhere.com</strong></p>
           <p>Example:</p>
-<pre id="secretkey"class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id="domain"class="col-md-10 bg-dark text-light"><code class="language-python">
 FULL_URL='https://yourdomain.com'
 
 </code></pre>
+        <p class="h5">DOMAIN_NAME</p>
+        <p>This variable refers to your domain. If using the Free Beginner
+          PythonAnywhere account, your domain will be: <strong>yourusername.pythonanywhere.com</strong></p>
+        <p>Example:</p>
+<pre id="secretkey"class="col-md-10 bg-dark text-light"><code class="language-python">
+DOMAIN_NAME='yourdomain.com'
+
+</code></pre>
+
         <p class="h5">SECRET_KEY</p>
         <p>This variable refers to the Django Secret Key. The website will not
           function without a value set for this variable. Keep this variable secret!</p>
@@ -184,7 +193,7 @@ DEFAULT_FROM_EMAIL='yourusername@gmail.com'
         <div class="py-2 mb-4 rounded bg-light container">
           <p id="databasevariables"><strong>Note: </strong>By default, The Simple
             Photo Pak sets the outgoing port to 587 using TLS. If you want to
-            change these settings, they are located in <strong>photo_pak/photo_project/settings.py</strong>. </p>
+            change these settings, they are located in <strong>digital_art_pak/digital_art_pak/settings.py</strong>. </p>
         </div>
 
         <p class="h5">DATABASE VARIABLES</p>
@@ -205,20 +214,12 @@ DEFAULT_FROM_EMAIL='yourusername@gmail.com'
               <li><strong>HOST:</strong> The host address for the database.</li>
           </ul>
           <p>Example:</p>
-<pre id="domain"class="col-md-10 bg-dark text-light"><code class="language-python">
+<pre id="debug"class="col-md-10 bg-dark text-light"><code class="language-python">
 DATABASE_ENGINE='django.db.backends.mysql'
 DATABASE_NAME='yourusername$default'
 DATABASE_USER='yourusername'
 DATABASE_PASSWORD='s3cur3p4ssw0rd'
 DATABASE_HOST='yourusername.mysql.pythonanywhere-services.com'
-
-</code></pre>
-          <p class="h5">DOMAIN_NAME</p>
-          <p>This variable refers to your domain. If using the Free Beginner
-            PythonAnywhere account, your domain will be: <strong>yourusername.pythonanywhere.com</strong></p>
-          <p>Example:</p>
-<pre id="debug"class="col-md-10 bg-dark text-light"><code class="language-python">
-DOMAIN_NAME='yourdomain.com'
 
 </code></pre>
           <p class="h5">DEBUG</p>
@@ -249,7 +250,7 @@ DOMAIN_NAME='yourdomain.com'
 <pre class="col-md-10 bg-dark text-light"><code class="language-python">source venv/bin/activate
 </code></pre>
               <li>Navigate to the project folder: </li>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">cd photo_pak/
+<pre class="col-md-10 bg-dark text-light"><code class="language-python">cd digital_art_pak/
 </code></pre>
 <li>Install the requirements: </li>
 <pre class="col-md-10 bg-dark text-light"><code class="language-python">pip install -r requirements.txt
@@ -291,14 +292,14 @@ DOMAIN_NAME='yourdomain.com'
 import os
 import sys
 
-path = '/home/yourusername/photo_pak'
+path = '/home/yourusername/digital_art_pak'
 if path not in sys.path:
   sys.path.append(path)
 
 from dotenv import load_dotenv
 load_dotenv(os.path.join(path, '.env'))
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'photo_project.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'digital_art_pak.settings'
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
@@ -313,7 +314,7 @@ application = get_wsgi_application()
             (created in Step 5), website images, styling, and media.</p>
           <p class="lead">Under the Code Section, enter the path to the Source Code.
             The Source Code path is the path to the main project folder:</p>
-<pre class="col-md-10 bg-dark text-light"><code class="language-python">/home/yourusername/photo_pak
+<pre class="col-md-10 bg-dark text-light"><code class="language-python">/home/yourusername/digital_art_pak
 </code></pre>
           <p class="lead">Under the Virtualenv Section, enter the path to the
             virtual environment created in Step 5: </p>
@@ -332,7 +333,7 @@ application = get_wsgi_application()
             <tr>
               <td><strong>Static Folder</strong></td>
               <td>/static/</td>
-              <td>/home/<em>yourusername</em>/photo_pak/static</td>
+              <td>/home/<em>yourusername</em>/digital_art_pak/static</td>
             </tr>
             <tr>
               <td><strong>Admin Static Folder</strong></td>
@@ -342,7 +343,7 @@ application = get_wsgi_application()
             <tr>
               <td id="step9"><strong>Media Folder</strong></td>
               <td>/media/</td>
-              <td>/home/<em>yourusername</em>/photo_pak/media</td>
+              <td>/home/<em>yourusername</em>/digital_art_pak/media</td>
             </tr>
           </table>
 
@@ -411,7 +412,7 @@ application = get_wsgi_application()
                   <li><strong>Checkout.session.completed</strong></li>
                 </ul>
               </ol>
-              <img style="width:30em;"class="rounded img-fluid"src="{% static "img/deploy/webhook_setup.PNG" %}" alt="">
+              <img style="width:30em;"class="rounded img-fluid"src="{% static "img/deploy/webhook_setup.png" %}" alt="">
               <div class="py-2 mb-4 rounded bg-light container">
                 <p><strong>Note: </strong>If either of the webhook requirements are not
                   satisfied, or the Endpoint URL is misspelled (Example: it reads

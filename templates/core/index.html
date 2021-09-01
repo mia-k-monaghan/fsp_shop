@@ -154,10 +154,22 @@
 
     <!--Grid column-->
     <div class="col-lg-5 col-xl-4 mb-4">
-      <!--Featured image-->
+      <!--Product Image/Video-->
         <a href="{% url 'core:product-detail' slug=product.slug %}">
-          <img src="{{ product.image.url }}" class="img-fluid card shadow-sm"
-            alt="Where's the picture?">
+        {% if product.images.all.0 %}
+          {% if product.images.all.0.type == 'IMG' %}
+            <!--Image-->
+            <img src="{{product.images.all.0.image.url}}" class="img-fluid card-img-top shadow-sm" alt="{{product.title}}">
+          {% else %}
+          <!--Video-->
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item card-img-top shadow-sm"src="{{product.images.all.0.video_embed_url}}"></iframe>
+          </div>
+          {% endif %}
+        {% else %}
+        <!--Default Blank Product Image-->
+          <img src="{% static "img/Default_Blank_Product.png" %}" class="img-fluid card-img-top shadow-sm" alt="{{product.title}}">
+        {% endif %}
         </a>
     </div>
     <!--Grid column-->

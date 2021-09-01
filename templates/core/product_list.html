@@ -46,12 +46,21 @@
   {% for product in products %}
       <div class="col-lg-4 col-md-6 mb-4 mx-auto">
         <div class="card shadow">
-            <div class="view overlay">
-                <img src="{{product.image.url}}" class="card-img-top" alt="">
-                <a href="{% url 'core:product-detail' slug=product.slug %}">
-                    <div class="mask rgba-white-slight"></div>
-                </a>
+          <!--Product Image/Video-->
+          {% if product.images.all.0 %}
+            {% if product.images.all.0.type == 'IMG' %}
+              <!--Image-->
+              <img src="{{product.images.all.0.image.url}}" class="img-fluid card-img-top shadow-sm" alt="{{product.title}}">
+            {% else %}
+            <!--Video-->
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item card-img-top shadow-sm"src="{{product.images.all.0.video_embed_url}}"></iframe>
             </div>
+            {% endif %}
+          {% else %}
+          <!--Default Blank Product Image-->
+            <img src="{% static "img/Default_Blank_Product.png" %}" class="img-fluid card-img-top shadow-sm" alt="{{product.title}}">
+          {% endif %}
 
             <!--Card content-->
             <div class="card-body">
