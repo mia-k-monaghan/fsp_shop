@@ -7,13 +7,11 @@ import os
 
 User = get_user_model()
 
-
 class Product(models.Model):
     title = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(unique=True,editable=False,null=True,blank=True)
     stripe_id = models.CharField(max_length=100,blank=True,
         help_text = "The product's Stripe Price ID")
-    image = models.ImageField(upload_to='product_images',null=True)
     zip_file = models.FileField(upload_to='product_files',null=True)
     description = models.TextField(null=True,blank=True)
     additional_details = models.TextField(null=True,blank=True)
@@ -35,6 +33,19 @@ class Product(models.Model):
 
     def filename(self):
         return os.path.basename(self.zip_file.name)
+
+class ProductImage(models.Model):
+    TYPE_CHOICES = [
+        ('IMG', "Image"),
+        ('VID', "Video"),
+    ]
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
+    type = models.CharField(choices=TYPE_CHOICES, max_length=3)
+    image = models.ImageField(upload_to='product_images', blank=True, null=True)
+    video_embed_url = models.URLField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.product.title} | {self.type}"
 
 class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
