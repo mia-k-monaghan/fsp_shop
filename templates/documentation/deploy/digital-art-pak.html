@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+Digital ArtDigital ArtDigital ArtDigital ArtDigital ArtDigital Art{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -73,7 +73,7 @@
 
         <p class="h3 mt-5 pt-5">Step 2.	Upload Website Files</p>
         <p class="lead">Under the Files Tab, click ‘Upload File’ and upload the
-          Simple Photo Pak zip file. After the upload is complete, click
+          Digital Art Pak zip file. After the upload is complete, click
           “Start a Bash Console Here”.</p>
         <img class="rounded img-fluid"src="{% static "img/deploy/upload_file.png" %}" alt="">
         <p class="lead pt-4">To unzip the file, enter the following into the console.</p>
@@ -90,8 +90,7 @@ unzip digital_art_pak.zip
           host address, and database name. You will need to enter these variables
           into a file later.</p>
           <div class="py-2 mb-4 rounded bg-light container">
-            <p><strong>Note about Databases: </strong>By default, the Simple
-              Subscription Pak is set up to connect to a MySQL database. If you
+            <p><strong>Note about Databases: </strong>By default, the Digital Art Pak is set up to connect to a MySQL database. If you
               would like to change this setting, the database variables are located
               in the file location: <strong>digital_art_pak/.env</strong>, and additional database
               settings are located in the settings file located in :
@@ -106,7 +105,7 @@ unzip digital_art_pak.zip
             of variables. Most of these variables are stored in a secure .env file
             in the following location: <strong>digital_art_pak/.env</strong></p>
           <p>For your website to function, each variable in this file must be
-            accurately set. The Simple Photo Pak contains the following variables:</p>
+            accurately set. The Digital Art Pak contains the following variables:</p>
           <ul>
             <li><a href="#fullurl">FULL_URL</a> </li>
             <li><a href="#domain">DOMAIN_NAME</a> </li>
@@ -235,7 +234,7 @@ DATABASE_HOST='yourusername.mysql.pythonanywhere-services.com'
             </div>
 
             <p class="h3 pt-4">Step 5.	Install Requirements</p>
-            <p class="lead">The Simple Photo Pak Website requires some
+            <p class="lead">The Digital Art Pak Website requires some
               installations on the console to function properly. Perform the
               installations by completing the steps below.</p>
             <ol>
@@ -266,7 +265,7 @@ DATABASE_HOST='yourusername.mysql.pythonanywhere-services.com'
             </div>
 
             <p class="h3 pt-4">Step 6.	Run Database Migrations</p>
-            <p class="lead">The Simple Photo Pak comes with a fully
+            <p class="lead">The Digital Art Pak comes with a fully
               developed database to run your business. Migrate the database
               design to your MySQL database by entering the following command
               into the console:</p>
@@ -280,7 +279,7 @@ DATABASE_HOST='yourusername.mysql.pythonanywhere-services.com'
             <p id="step7"class="lead">Follow the prompts for setting a username and password.</p>
 
             <p class="h3 pt-4">Step 7.	Load Environment Variables in WSGI file</p>
-            <p>For The Simple Photo Pak to function properly,
+            <p>For The Digital Art Pak to function properly,
               the application must be told where to find the environment variables set in Step 4.
               To do this, complete the steps below.</p>
             <p class="lead">Navigate to the <strong>Web</strong> tab. Under the
@@ -309,7 +308,7 @@ application = get_wsgi_application()
           <p id="step8"class="lead">Save the file and return to the <strong>Web</strong> tab.</p>
 
           <p class="h3 pt-4">Step 8.	Set Website File Paths</p>
-          <p>For The Simple Photo Pak to function properly, you must tell
+          <p>For The Digital Art Pak to function properly, you must tell
             the application where to find the website source code, virtual environment
             (created in Step 5), website images, styling, and media.</p>
           <p class="lead">Under the Code Section, enter the path to the Source Code.
