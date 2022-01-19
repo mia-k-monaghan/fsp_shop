@@ -65,33 +65,17 @@ class ProfileView(LoginRequiredMixin, View):
         }
         return render(self.request, 'users/profile.html', context)
 
-def confirm_email(request):
-    user = request.user
-    current_site = get_current_site(request)
-    mail_subject = 'Confirm your Full Stack Pak Email'
-    message = render_to_string('mail_body.html', {
-        'user': user,
-        'domain': current_site.domain,
-        'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-        'token':account_activation_token.make_token(user),
-    })
-    to_email = request.user.email
-    email = EmailMessage(
-                mail_subject, message, to=[to_email]
-    )
-    email.send()
-    return HttpResponse(status=200)
 
-def activate(request, uidb64, token):
-    User = get_user_model()
+
+def activate(request, orderidb64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
+        order_id = force_text(urlsafe_base64_decode(orderidb64))
+        order = Order.objects.get(pk=order_id)
     except:
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        # user.is_active = True
-        # user.save()
+        order = None
+    if order is not None and account_activation_token.check_token(order, token):
+        order.email_confirmed = True
+        order.save()
         return HttpResponse('Thank you for your email confirmation.')
     else:
         return HttpResponse('Activation link is invalid!')
