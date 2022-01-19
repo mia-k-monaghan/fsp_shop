@@ -163,7 +163,7 @@
   <!--Main Navigation-->
 
   <!--Main layout-->
-  <main class="mt-5">
+  <main class="mt-5 pb-4">
     {% block content %}
 
     {% endblock content %}
@@ -173,9 +173,9 @@
 
   <!--Footer-->
   {% if footer %}
-    <footer style="background-color:{{footer.background_color}};"class="{{footer_text}}-footer-text text-center font-small my-4 pb-4">
+    <footer style="background-color:{{footer.background_color}};"class="{{footer_text}}-footer-text text-center font-small mt-4 pb-4">
   {% else %}
-    <footer style="background-color:black;"class="light-footer-text text-center my-4 pb-4">
+    <footer style="background-color:black;"class="light-footer-text text-center mt-4 pb-4">
   {% endif %}
     {% block extra_footer %}
 
