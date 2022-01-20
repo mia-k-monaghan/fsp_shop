@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta_block %}
+{% endblock meta_block %}
+
+
+{% block content %}
+
+<div class="mb-5 pb-5">
+  <div class="jumbotron text-center">
+    <h1 class="display-4">{{object.product}}</h1>
+    <p class="lead">Please complete the information below to complete the setup of your website!</p>
+  </div>
+  <div class="container pb-5">
+  <div class="row">
+    <div class="col-lg-5 col-md-6 mb-4 mx-auto">
+      <div class="card shadow">
+        <div class="card-body text-center">
+          {% if not object.email or not object.business_name %}
+            <p class="card-title h5 mt-3">Step 1 of 2:</p>
+            <p class="lead">Complete Information</p>
+            <a class="btn btn-primary mb-4" href="{% url 'users:update-order' pk=object.pk %}">Get Started</a>
+          {% elif not object.confirmed_email %}
+            <p class="card-title h5 mt-3">Step 2 of 2:</p>
+            <p class="lead">Confirm Information</p>
+            <div class="card-text text-left">
+              <a class="float-right" href="{% url 'users:update-order' pk=object.pk %}">
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+              <p class="small"><strong>Email:</strong> {{object.email}}</p>
+              <p class="small"><strong>Business/Website Name:</strong> {{object.business_name}}</p>
+            </div>
+            <a class="btn btn-primary mb-4" href="{% url 'users:confirm-email' orderid=object.pk %}">Send Email Confirmation</a>
+          {% else %}
+          <p class="card-title h5 mt-3">Information Completed</p>
+          {% endif %}
+        </div>
+      </div>
+      <br>
+  </div>
+</div>
+</div>
+</div>
+
+{% endblock content %}

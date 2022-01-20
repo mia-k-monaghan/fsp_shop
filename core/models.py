@@ -68,20 +68,5 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.user.email)
-
-    def confirm_email(self):
-        user = self.user
-        current_site = get_current_site(self.request)
-        mail_subject = 'Confirm your Full Stack Pak Email'
-        message = render_to_string('mail_body.html', {
-            'user': user,
-            'domain': current_site.domain,
-            'orderid':urlsafe_base64_encode(force_bytes(self.pk)),
-            'token':account_activation_token.make_token(self),
-        })
-        to_email = self.email
-        email = EmailMessage(
-                    mail_subject, message, to=[to_email]
-        )
-        email.send()
-        return HttpResponse(status=200)
+    def get_absolute_url(self):
+        return reverse("users:order-detail", kwargs={'pk': self.pk})
