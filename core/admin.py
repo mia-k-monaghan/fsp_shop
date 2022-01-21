@@ -10,15 +10,15 @@ class OrderResource(resources.ModelResource):
     class Meta:
         model=models.Order
         fields=['id',
-        'product__title','product__stripe_id',
+        'product__title','product__stripe_id', 'product__includes_setup',
         'user','order_date']
 
 @admin.register(models.Order)
 class OrderAdmin(ImportExportModelAdmin):
     resource_class = OrderResource
-    list_filter = ['product','order_date']
+    list_filter = ['product__includes_setup','setup_complete','product','order_date']
     search_fields = ['user','product__title','product__stripe_id','order_date']
-    list_display = ['user','product','order_date']
+    list_display = ['user','product','confirmed_email','setup_complete']
     list_display_links = ['user']
 
 class ProductImageAdmin(admin.StackedInline):
@@ -28,7 +28,7 @@ class ProductResource(resources.ModelResource):
         model=models.Product
         fields=['id','stripe_id',
         'title','description','additional_details',
-        'featured','archived']
+        'featured','archived', 'includes_setup']
 
 class ProductAdmin(ImportExportModelAdmin):
     resource_class = ProductResource
