@@ -77,7 +77,7 @@ def confirm_email(request, orderid):
         'user': user,
         'domain': current_site.domain,
         'orderid':urlsafe_base64_encode(force_bytes(orderid)),
-        'token':account_activation_token.make_token(order),
+        'token':account_activation_token.make_token(user),
     })
     to_email = order.email
     email = EmailMessage(
@@ -89,13 +89,16 @@ def confirm_email(request, orderid):
 class CheckInboxView(LoginRequiredMixin, TemplateView):
     template_name = 'core/check_your_email.html'
 
+class InvalidLinkView(TemplateView):
+    template_name = 'core/invalid_link.html'
+
 def activate(request, orderidb64, token):
     try:
         order_id = force_text(urlsafe_base64_decode(orderidb64))
         order = Order.objects.get(pk=order_id)
     except:
         order = None
-    if order is not None and account_activation_token.check_token(order, token):
+    if order is not None and order.user==request.user and account_activation_token.check_token(request.user, token):
         order.confirmed_email = True
         order.save()
         mail_subject = 'Order Ready for Setup'
@@ -107,7 +110,7 @@ def activate(request, orderidb64, token):
         email.send()
         return HttpResponseRedirect(reverse('users:order-detail', args=[order_id]))
     else:
-        return HttpResponse("We're sorry, the activation link you tried to use is invalid. This usually happens if the token is expired.")
+        return HttpResponseRedirect(reverse('users:invalid-link'))
 
 class UpdateOrderView(LoginRequiredMixin, UpdateView):
     model=Order
