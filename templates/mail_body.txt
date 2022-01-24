@@ -1,0 +1,2 @@
+Please click the following link to confirm your account: {{ link }}
+This link will expire in 24 hours.
