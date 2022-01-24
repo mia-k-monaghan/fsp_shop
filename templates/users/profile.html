@@ -8,9 +8,8 @@
 
 <div class="mb-5 pb-5">
   <div class="jumbotron text-center">
-    <h1 class="display-4">Your Downloads</h1>
+    <h1 class="display-4">Your Purchases</h1>
     <p class="lead">{{user.email}}</p>
-    <a class="btn btn-primary" href="{% url 'users:confirm-email' %}">Confirm Email</a>
   </div>
   <div class="container pb-5">
 
@@ -36,8 +35,12 @@
         <div class="card-body">
           <h3 class="card-title text-center">{{order.product.title}}</h3>
           <p class="card-text text-center">{{order.product.description}}</p>
-          <a class="btn btn-block btn-primary btn-lg"href="{{order.product.zip_file.url}}" download="{{order.product.filename}}">Download</a>
-          <a class="btn btn-block btn-outline-dark" href="{% url 'documentation:deployment-guide' order.product.slug %}">Deployment Guide</a>
+          {% if order.product.includes_setup %}
+            <a class="btn btn-block btn-primary btn-lg" href="{% url 'users:order-detail' pk=order.pk %}">Setup Details</a>
+          {% else %}
+            <a class="btn btn-block btn-primary btn-lg" href="{{order.product.zip_file.url}}" download="{{order.product.filename}}">Download</a>
+            <a class="btn btn-block btn-outline-dark" href="{% url 'documentation:deployment-guide' order.product.slug %}">Deployment Guide</a>
+          {% endif %}
         </div>
       </div>
       <br>

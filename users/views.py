@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, UpdateView
+from django.views.generic import View, UpdateView, DetailView, TemplateView
 from django.views.generic.edit import FormView
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import gettext as _
@@ -15,7 +15,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from core.models import Order
 from .forms import LoginForm, CreateAccountForm
@@ -65,33 +65,53 @@ class ProfileView(LoginRequiredMixin, View):
         }
         return render(self.request, 'users/profile.html', context)
 
-def confirm_email(request):
+class OrderDetailView(LoginRequiredMixin, DetailView):
+    model=Order
+
+def confirm_email(request, orderid):
     user = request.user
+    order = Order.objects.get(pk=orderid)
     current_site = get_current_site(request)
     mail_subject = 'Confirm your Full Stack Pak Email'
     message = render_to_string('mail_body.html', {
         'user': user,
         'domain': current_site.domain,
-        'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+        'orderid':urlsafe_base64_encode(force_bytes(orderid)),
         'token':account_activation_token.make_token(user),
     })
-    to_email = request.user.email
+    to_email = order.email
     email = EmailMessage(
                 mail_subject, message, to=[to_email]
     )
     email.send()
-    return HttpResponse(status=200)
+    return HttpResponseRedirect(reverse('users:check-inbox'))
 
-def activate(request, uidb64, token):
-    User = get_user_model()
+class CheckInboxView(LoginRequiredMixin, TemplateView):
+    template_name = 'core/check_your_email.html'
+
+class InvalidLinkView(TemplateView):
+    template_name = 'core/invalid_link.html'
+
+def activate(request, orderidb64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
+        order_id = force_text(urlsafe_base64_decode(orderidb64))
+        order = Order.objects.get(pk=order_id)
     except:
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        # user.is_active = True
-        # user.save()
-        return HttpResponse('Thank you for your email confirmation.')
+        order = None
+    if order is not None and order.user==request.user and account_activation_token.check_token(request.user, token):
+        order.confirmed_email = True
+        order.save()
+        mail_subject = 'Order Ready for Setup'
+        message = "Hello, the required infomation has been completed on an order, and it's now ready for setup. Please login to the Administration to view the order details."
+        to_email = 'support@fullstackpak.com'
+        email = EmailMessage(
+            mail_subject, message, to=[to_email]
+        )
+        email.send()
+        return HttpResponseRedirect(reverse('users:order-detail', args=[order_id]))
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponseRedirect(reverse('users:invalid-link'))
+
+class UpdateOrderView(LoginRequiredMixin, UpdateView):
+    model=Order
+    fields=['email', 'business_name']

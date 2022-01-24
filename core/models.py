@@ -3,6 +3,11 @@ from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.http import HttpResponse
+from django.core.mail import EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
+
 import os
 
 User = get_user_model()
@@ -10,6 +15,8 @@ User = get_user_model()
 class Product(models.Model):
     title = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(unique=True,editable=False,null=True,blank=True)
+    includes_setup = models.BooleanField(default=False,
+        help_text = "Product includes deployment & hosting setup.")
     stripe_id = models.CharField(max_length=100,blank=True,
         help_text = "The product's Stripe Price ID")
     zip_file = models.FileField(upload_to='product_files',null=True)
@@ -51,6 +58,16 @@ class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     product = models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
     order_date = models.DateTimeField(auto_now=True,editable=False)
-
+    email = models.EmailField(max_length=254,blank=True, null=True,
+        help_text="This email will be used to create your PythonAnywhere host account.")
+    confirmed_email = models.BooleanField(default=False)
+    business_name = models.CharField(max_length=100,blank=True, null=True,
+        help_text="The name of your business/website.")
+    host_username = models.CharField(max_length=100,blank=True, null=True)
+    host_temporary_password = models.CharField(max_length=250,blank=True, null=True)
+    setup_complete = models.BooleanField(default=False)
+    
     def __str__(self):
         return str(self.user.email)
+    def get_absolute_url(self):
+        return reverse("users:order-detail", kwargs={'pk': self.pk})
