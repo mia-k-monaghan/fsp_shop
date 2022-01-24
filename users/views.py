@@ -98,9 +98,16 @@ def activate(request, orderidb64, token):
     if order is not None and account_activation_token.check_token(order, token):
         order.confirmed_email = True
         order.save()
+        mail_subject = 'Order Ready for Setup'
+        message = "Hello, the required infomation has been completed on an order, and it's now ready for setup. Please login to the Administration to view the order details."
+        to_email = 'support@fullstackpak.com'
+        email = EmailMessage(
+            mail_subject, message, to=[to_email]
+        )
+        email.send()
         return HttpResponseRedirect(reverse('users:order-detail', args=[order_id]))
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse("We're sorry, the activation link you tried to use is invalid. This usually happens if the token is expired.")
 
 class UpdateOrderView(LoginRequiredMixin, UpdateView):
     model=Order
