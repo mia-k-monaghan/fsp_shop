@@ -22,7 +22,7 @@
   <!-- Bootstrap core CSS -->
   <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
   <!-- Your custom styles (optional) -->
-  <link href="{% static "css/master.css" %}" rel="stylesheet">
+  <link href="{% static "css/master.css" %}?{% now "U" %}" rel="stylesheet">
 
   {% block extra_head %}
 
@@ -33,16 +33,9 @@
 
   <!--Main Navigation-->
   <header>
-
     <!-- Navbar -->
-    {% if nav %}
-      <nav style="background-color:{{nav.background_color}};"class="navbar shadow fixed-top navbar-expand-lg navbar-{{nav_text}} scrolling-navbar">
-
-    {% else %}
-      <nav class="navbar shadow fixed-top navbar-expand-lg navbar-light bg-light scrolling-navbar">
-    {% endif %}
+    <nav class="navbar shadow fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
       <div class="container">
-
         <!-- Brand -->
         <a class="navbar-brand waves-effect" href="{% url 'core:index' %}">
           {% if logo %}
@@ -163,7 +156,7 @@
   <!--Main Navigation-->
 
   <!--Main layout-->
-  <main class="mt-5 pb-4">
+  <main class="pb-4">
     {% block content %}
 
     {% endblock content %}
